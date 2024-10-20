@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加新日程</title>
+</head>
+<body>
+    <h1>
+        <div th:if="${Action} == 'create'">添加新日程</div>
+        <div th:if="${Action} == 'update'">更新日程</div>
+    </h1>
+    <form action="/plan" method="POST">
+        <input type="hidden" id="action" name="action" th:value="${Action}">
+
+        <label for="title">日程标题：</label><br>
+        <input type="text" id="title" name="title" th:value="${Schedule.title}"><br><br>
+
+        <label for="type">选择日程类型：</label>
+        <select id="type" name="type">
+            <div th:if="${Schedule.type}">
+                <option disabled selected
+                    th:value="${Schedule.type.id}"
+                    th:text="${Schedule.type.typeName}">
+                </option>
+            </div>
+            <option th:each="ScheduleType : ${ScheduleTypes}"
+                    th:value="${ScheduleType.id}"
+                    th:text="${ScheduleType.typeName}">
+            </option>
+        </select><br><br>
+        
+        <label for="date">日期：</label><br>
+        <input type="date" id="date" name="date" th:value="${@dateFormatUtil.formatDate(Schedule.date)}"><br><br>
+
+        <label for="startTime">开始时间：</label><br>
+        <input type="time" id="startTime" name="startTime" th:value="${@dateFormatUtil.formatTime(Schedule.startTime)}">
+        <br><br>
+
+        <label for="endtTime">结束时间：</label><br>
+        <input type="time" id="endtTime" name="endtTime" th:value="${@dateFormatUtil.formatTime(Schedule.endTime)}">
+        <br><br>
+
+        <label for="description">描述：</label><br>
+        <textarea id="description" name="description" th::value="${Schedule.description}" rows="4" cols="50"></textarea><br><br>
+
+        <div th:if="${Update}">
+            <input type="hidden" id="oldStartTime" name="oldStartTime" th:value="${@dateFormatUtil.formatTime(Schedule.startTime)}">
+            <input type="hidden" id="oldEndTime" name="oldEndTime" th:value="${@dateFormatUtil.formatTime(Schedule.endTime)}">
+        </div>
+
+        <button type="submit">
+            <div th:if="${Action} == 'create'">添加日程</div>
+            <div th:if="${Action} == 'update'">更新日程</div>
+        </button>
+
+    </form>
+    <div th:if="${Action} == 'update'">
+        <form action="/plan" method="POST">
+            <input type="hidden" id="action" name="action" value="delete">
+            <input type="hidden" id="startTime" name="startTime" th:value="${@dateFormatUtil.formatTime(Schedule.startTime)}">
+            <input type="hidden" id="endtTime" name="endtTime" th:value="${@dateFormatUtil.formatTime(Schedule.endtTime)}">
+            <button type="submit">删除日程</button>
+        </form>
+    </div>
+
+    <div th:if="${Error}">
+        <p id="error" name="error" th:text="${Error}"></p>
+    </div>
+
+    <p><a href="/home">返回首页</a></p>
+</body>
+</html>

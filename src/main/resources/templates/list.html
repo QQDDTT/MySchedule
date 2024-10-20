@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>日程清单</title>
+</head>
+<body>
+    <h1>日程清单</h1>
+    <form action="/list">
+        <input type="date" id="date" name="date" th:value="${@dateFormatUtil.formatDate(Date)}">
+        <button type="submit">检索</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>日程</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="Entry: ${SchedulesGroup.entrySet()}">
+                <td th:text="${@dateFormatUtil.formatDate(Entry.key)}"></td>
+                <td>
+                    <div id="schedule" name="schedule" th:each="Schedule : ${Entry.value}">
+                        <p th:text="${Schedule.title}"></p><br>
+                        <p th:text="${Schedule.description}"></p><br>
+                        <p th:text="${@dateFormatUtil.formatTime(Schedule.startTime)}"></p> - 
+                        <p th:text="${@dateFormatUtil.formatTime(Schedule.endTime)}"></p>
+                    </div>
+                    <p th:if="${#lists.isEmpty(Entry.value)}">无日程</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div th:if="${Error}">
+        <p id="error" name="error" th:text="${Error}"></p>
+    </div>
+    <p><a href="/home">返回首页</a></p>
+</body>
+</html>
