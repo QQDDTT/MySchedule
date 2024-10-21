@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.local.MySchedule.dao.TypeMapper">
+
+    <!-- 查询所有日程类型 -->
+    <select id="selectScheduleTypes" resultType="com.local.MySchedule.entity.ScheduleType">
+        SELECT type_id AS typeId, type_name AS typeName, type_description AS typeDescription
+        FROM schedule_type
+    </select>
+
+    <!-- 根据ID查询日程类型 -->
+    <select id="selectScheduleTypeById" parameterType="int" resultType="com.local.MySchedule.entity.ScheduleType">
+        SELECT type_id AS typeId, type_name AS typeName, type_description AS typeDescription
+        FROM schedule_type
+        WHERE type_id = #{typeId}
+    </select>
+
+    <!-- 创建日程类型 -->
+    <insert id="createScheduleType" parameterType="com.local.MySchedule.entity.ScheduleType">
+        INSERT INTO schedule_type (type_name, type_description)
+        VALUES (#{typeName}, #{typeDescription})
+    </insert>
+
+    <!-- 更新日程类型 -->
+    <update id="updateScheduleType" parameterType="com.local.MySchedule.entity.ScheduleType">
+        UPDATE schedule_type
+        SET type_name = #{typeName}, type_description = #{typeDescription}
+        WHERE type_id = #{typeId}
+    </update>
+
+    <!-- 删除日程类型 -->
+    <delete id="deleteScheduleType" parameterType="int">
+        DELETE FROM schedule_type
+        WHERE type_id = #{typeId}
+    </delete>
+
+</mapper>

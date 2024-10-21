@@ -30,8 +30,8 @@
             </option>
         </select><br><br>
         
-        <label for="date">日期：</label><br>
-        <input type="date" id="date" name="date" th:value="${@dateFormatUtil.formatDate(Schedule.date)}"><br><br>
+        <label for="scheduleDate">日期：</label><br>
+        <input type="scheduleDate" id="scheduleDate" name="scheduleDate" th:value="${@dateFormatUtil.formatDate(Schedule.scheduleDate)}"><br><br>
 
         <label for="startTime">开始时间：</label><br>
         <input type="time" id="startTime" name="startTime" th:value="${@dateFormatUtil.formatTime(Schedule.startTime)}">

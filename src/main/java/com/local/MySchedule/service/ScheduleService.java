@@ -1,8 +1,10 @@
 package com.local.MySchedule.service;
 
+import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.local.MySchedule.common.ScheduleException;
 import com.local.MySchedule.dao.ScheduleMapper;
+import com.local.MySchedule.dao.TypeMapper;
 import com.local.MySchedule.entity.Schedule;
 import com.local.MySchedule.entity.ScheduleType;
 
@@ -25,98 +28,9 @@ public class ScheduleService {
     @Autowired
     private ScheduleMapper scheduleMapper;
 
-    /**
-     * 获取所有的日程类型
-     * @return 日程类型列表
-     * @throws ScheduleException
-     */
-    public List<ScheduleType> getType () throws ScheduleException{
-        List<ScheduleType> scheduleTypes = scheduleMapper.selectScheduleTypes();
-        if (scheduleTypes == null || scheduleTypes.isEmpty()) {
-            LOGGER.error("No schedule types found");
-            throw new IllegalArgumentException("No schedule types found");
-        } else {
-            LOGGER.debug("get schedule types size {}", scheduleTypes.size());
-        }
-        return scheduleTypes;
-    }
+    @Autowired
+    private TypeMapper typeMapper;
 
-    /**
-     * 根据类型ID获取日程类型
-     * @param typeId 类型ID
-     * @return 日程类型
-     * @throws ScheduleException
-     */
-    public ScheduleType getTypeById (int TypeId) throws ScheduleException{
-        try {
-            return scheduleMapper.selectScheduleTypeById(TypeId);
-        } catch (Exception e) {
-            LOGGER.error("Get type id : \" + TypeId + \" failed !");
-            throw new ScheduleException("Get type id : " + TypeId + " failed !");
-        }
-    }
-
-    /**
-     * 创建新的日程类型
-     * @param typeName 类型名称
-     * @param typeDescription 类型描述
-     * @throws ScheduleException
-     */
-    public void createScheduleType (String typeName, String typeDescription) throws ScheduleException{
-        List<ScheduleType> types = getType();
-        for (ScheduleType type : types) {
-            if (type.getTypeName().equals(typeName)) {
-                LOGGER.error("Type name : " + typeName + " is already exists !");
-                throw new ScheduleException("Type name : " + typeName + " is already exists !");
-            }
-        }
-        ScheduleType type = new ScheduleType();
-        type.setTypeName(typeName);
-        type.setTypeDescription(typeDescription);
-        boolean result = scheduleMapper.createScheduleType(type);
-        if (!result) {
-            LOGGER.error("Create schedule type failed !");
-            throw new ScheduleException("Create schedule type failed !");
-        }
-    }
-
-    /**
-     * 更新日程类型
-     * @param typeId 类型ID
-     * @param typeName 类型名称
-     * @param typeDescription 类型描述
-     * @throws ScheduleException
-     */
-    public void updateScheduleType (int typeId, String typeName, String typeDescription) throws ScheduleException {
-        ScheduleType type = getTypeById(typeId);
-        if (type == null || type.getId() == 0) {
-            throw new ScheduleException("Type id : " + typeId + "is not exists");
-        }
-        type.setTypeName(typeName);
-        type.setTypeDescription(typeDescription);
-        boolean result = scheduleMapper.updateScheduleType(type);
-        if (!result) {
-            LOGGER.error("Update schedule type failed !");
-            throw new ScheduleException("Update schedule type failed !");
-        }
-    }
-
-    /**
-     * 删除日程类型
-     * @param typeId 类型ID
-     * @throws ScheduleException
-     */
-    public void deleteScheduleType (int typeId) throws ScheduleException {
-        ScheduleType type = getTypeById(typeId);
-        if (type == null || type.getId() == 0) {
-            throw new ScheduleException("Type id : " + typeId + "is not exists");
-        }
-        boolean result = scheduleMapper.deleteScheduleType(typeId);
-        if (!result) {
-            LOGGER.error("Delete schedule type failed !");
-            throw new ScheduleException("Delete schedule type failed !");
-        }
-    }
 
     /**
      * 根据类型ID获取所有日程的时长总和
@@ -130,7 +44,8 @@ public class ScheduleService {
             List<Schedule> schedules = scheduleMapper.selectSchedulesByType(typeId);
 
             for (Schedule schedule : schedules) {
-                long seconds = Duration.between(schedule.getStartTime(), schedule.getEndTime()).toSeconds();
+                @SuppressWarnings("deprecation")
+                long seconds = Duration.between(schedule.getStartTime(), schedule.getStartTime()).toSeconds();
                 total += seconds;
             }
             return Duration.ofSeconds(total);
@@ -152,7 +67,8 @@ public class ScheduleService {
             List<Schedule> schedules = scheduleMapper.selectSchedulesByTypeAndDate(typeId, date);
 
             for (Schedule schedule : schedules) {
-                long seconds = Duration.between(schedule.getStartTime(), schedule.getEndTime()).toSeconds();
+                @SuppressWarnings("deprecation")
+                long seconds = Duration.between(schedule.getStartTime(), schedule.getStartTime()).toSeconds();
                 total += seconds;
             }
             return Duration.ofSeconds(total);
@@ -218,11 +134,11 @@ public class ScheduleService {
      * @return 该日期的所有日程列表
      * @throws ScheduleException 如果该日期没有日程，则抛出异常
      */
-    public List<Schedule> getSchedules (LocalDate date) throws ScheduleException {
-        List<Schedule> schedules = scheduleMapper.selectSchedulesByDate(date);
+    public List<Schedule> getSchedules (LocalDate scheduleDate) throws ScheduleException {
+        List<Schedule> schedules = scheduleMapper.selectSchedulesByDate(scheduleDate);
         if (schedules.size() == 0) {
-            LOGGER.error("Schedules in date : " + date.toString() + " is not exists !");
-            throw new ScheduleException("Schedules in date : " + date.toString() + " is not exists !");
+            LOGGER.error("Schedules in date : " + scheduleDate.toString() + " is not exists !");
+            throw new ScheduleException("Schedules in date : " + scheduleDate.toString() + " is not exists !");
         }
         return schedules;
     }
@@ -293,7 +209,7 @@ public class ScheduleService {
      * @return 与指定时间范围对应的日程
      * @throws ScheduleException 如果获取日程失败，则抛出异常
      */
-    public Schedule getScheduleByTime (LocalDateTime startTime, LocalDateTime endTime) throws ScheduleException {
+    public Schedule getScheduleByTime (LocalTime startTime, LocalTime endTime) throws ScheduleException {
         try {
             return scheduleMapper.selectScheduleByTime(startTime, endTime);
         } catch (Exception e) {
@@ -312,7 +228,7 @@ public class ScheduleService {
      * @param scheduleDescription 日程描述
      * @throws ScheduleException 如果创建日程失败，则抛出异常
      */
-    public void createSchedule (LocalDate date, LocalDateTime startTime, LocalDateTime endTime, String title, int typeId, String description) throws ScheduleException {
+    public void createSchedule (LocalDate scheduleDate, LocalTime startTime, LocalTime endTime, String title, int typeId, String description) throws ScheduleException {
         ScheduleType type = getTypeById(typeId);
         LocalDateTime createTime = LocalDateTime.now();
         if (title.isBlank()) {
@@ -320,7 +236,7 @@ public class ScheduleService {
             throw new ScheduleException("Outline is blank !");
         }
         Schedule schedule = new Schedule();
-        schedule.setDate(date);
+        schedule.setScheduleDate(scheduleDate);
         schedule.setStartTime(startTime);
         schedule.setEndTime(endTime);
         schedule.setTitle(title);
@@ -350,14 +266,14 @@ public class ScheduleService {
      * @param scheduleDescription 日程描述
      * @throws ScheduleException 如果更新日程失败，则抛出异常
      */
-    public void updateSchedule (LocalDate date, LocalDateTime oldStartTime, LocalDateTime oldEndTime, LocalDateTime startTime, LocalDateTime endTime, String title, int typeId, String description) throws ScheduleException {
+    public void updateSchedule (LocalDate scheduleDate, LocalTime oldStartTime, LocalTime oldEndTime, LocalTime startTime, LocalTime endTime, String title, int typeId, String description) throws ScheduleException {
         Schedule schedule = getScheduleByTime(oldStartTime, oldEndTime);
         ScheduleType type = getTypeById(typeId);
         LocalDateTime updateTime = LocalDateTime.now();
         if (title.isBlank()) {
             throw new ScheduleException("Outline is blank !");
         }
-        schedule.setDate(date);
+        schedule.setScheduleDate(scheduleDate);
         schedule.setStartTime(startTime);
         schedule.setEndTime(endTime);
         schedule.setTitle(title);
@@ -380,12 +296,27 @@ public class ScheduleService {
      * @param endTime 要删除日程的结束时间
      * @throws ScheduleException 如果删除日程失败，则抛出异常
      */
-    public void deleteSchedule (LocalDateTime startTime, LocalDateTime endTime) throws ScheduleException {
+    public void deleteSchedule (LocalTime startTime, LocalTime endTime) throws ScheduleException {
         try {
             scheduleMapper.deleteSchedule(startTime, endTime);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             throw new ScheduleException("Delete schedule failed !");
+        }
+    }
+
+    /**
+     * 根据类型ID获取日程类型
+     * @param typeId 类型ID
+     * @return 日程类型
+     * @throws ScheduleException
+     */
+    private ScheduleType getTypeById (int TypeId) throws ScheduleException{
+        try {
+            return typeMapper.selectScheduleTypeById(TypeId);
+        } catch (Exception e) {
+            LOGGER.error("Get type id : \" + TypeId + \" failed !");
+            throw new ScheduleException("Get type id : " + TypeId + " failed !");
         }
     }
 }
