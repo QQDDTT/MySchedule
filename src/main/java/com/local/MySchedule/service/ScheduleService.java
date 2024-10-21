@@ -1,6 +1,5 @@
 package com.local.MySchedule.service;
 
-import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,7 +43,6 @@ public class ScheduleService {
             List<Schedule> schedules = scheduleMapper.selectSchedulesByType(typeId);
 
             for (Schedule schedule : schedules) {
-                @SuppressWarnings("deprecation")
                 long seconds = Duration.between(schedule.getStartTime(), schedule.getStartTime()).toSeconds();
                 total += seconds;
             }
@@ -67,7 +65,6 @@ public class ScheduleService {
             List<Schedule> schedules = scheduleMapper.selectSchedulesByTypeAndDate(typeId, date);
 
             for (Schedule schedule : schedules) {
-                @SuppressWarnings("deprecation")
                 long seconds = Duration.between(schedule.getStartTime(), schedule.getStartTime()).toSeconds();
                 total += seconds;
             }
