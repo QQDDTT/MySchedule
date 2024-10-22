@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ScheduleType {
 
-    private int id;
+    private int typeId;
     private String typeName;
     private String typeDescription;
     

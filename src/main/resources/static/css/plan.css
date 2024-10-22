@@ -1,0 +1,97 @@
+/* plan.css */
+
+/* 通用样式 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 表单样式 */
+form {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 标签样式 */
+label {
+    display: block; /* 标签纵向排列 */
+    margin: 10px 0 5px;
+}
+
+/* 输入框样式 */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* 文本域可调整大小 */
+textarea {
+    resize: vertical; /* 允许垂直调整大小 */
+}
+
+/* 按钮样式 */
+button {
+    background-color: #4CAF50; /* 绿色 */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 90%; /* 按钮宽度为100% */
+}
+
+button:hover {
+    background-color: #45a049; /* 深绿色 */
+}
+
+/* 删除按钮样式 */
+.delete-button {
+    background-color: #f44336; /* 红色 */
+}
+
+.delete-button:hover {
+    background-color: #d32f2f; /* 深红色 */
+}
+
+/* 错误信息样式 */
+#error {
+    color: red;
+    font-weight: bold;
+}
+
+/* 返回链接样式 */
+.back-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.back-link a {
+    text-decoration: none;
+    color: #4CAF50;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}

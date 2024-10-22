@@ -82,7 +82,7 @@ public class TypeService {
      */
     public void updateScheduleType (int typeId, String typeName, String typeDescription) throws ScheduleException {
         ScheduleType type = getTypeById(typeId);
-        if (type == null || type.getId() == 0) {
+        if (type == null || type.getTypeId() == 0) {
             throw new ScheduleException("Type id : " + typeId + "is not exists");
         }
         type.setTypeName(typeName);
@@ -101,7 +101,7 @@ public class TypeService {
      */
     public void deleteScheduleType (int typeId) throws ScheduleException {
         ScheduleType type = getTypeById(typeId);
-        if (type == null || type.getId() == 0) {
+        if (type == null || type.getTypeId() == 0) {
             throw new ScheduleException("Type id : " + typeId + "is not exists");
         }
         boolean result = typeMapper.deleteScheduleType(typeId);

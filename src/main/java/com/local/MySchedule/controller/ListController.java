@@ -1,6 +1,7 @@
 package com.local.MySchedule.controller;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,15 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.local.MySchedule.common.ScheduleException;
 import com.local.MySchedule.entity.Schedule;
 import com.local.MySchedule.service.ScheduleService;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class ListController {
@@ -30,14 +28,12 @@ public class ListController {
     private ScheduleService scheduleService;
     
     /**
-     * 处理 GET 请求，获取当天的计划列表并显示。
-     * @param request 客户端请求对象
-     * @param response 服务端响应对象
+     * 处理 GET 请求，显示当天的计划列表。
      * @param model 用于将数据传递给视图
      * @return 返回 list 页面
      */
     @GetMapping("/list")
-    public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String getList(Model model) {
         LOGGER.info("get list");
         LocalDate scheduleDate = LocalDate.now();
         Map<LocalDate, List<Schedule>> schedulesGroup = new TreeMap<>();
@@ -54,59 +50,51 @@ public class ListController {
     }
     
     /**
-     * 处理 POST 请求，根据指定条件（年、月、日）获取计划列表。
-     * @param request 客户端请求对象
-     * @param response 服务端响应对象
-     * @param cond 路径变量，用于指示按年、月或日筛选计划
+     * 处理 POST 请求，根据指定的日期范围筛选计划列表。
+     * @param startDateStr 开始日期
+     * @param endDateStr 结束日期
      * @param model 用于将数据传递给视图
      * @return 返回 list 页面
      */
-    @PostMapping("/list/{Cond}")
-    public String postList(HttpServletRequest request, HttpServletResponse response, @PathVariable("Cond") String cond, Model model) {
-        LOGGER.info("post list {}", cond);
+    @PostMapping("/list")
+    public String postList(@RequestParam("start_date") String startDateStr, 
+                        @RequestParam("end_date") String endDateStr, 
+                        Model model) {
         Map<LocalDate, List<Schedule>> schedulesGroup = new TreeMap<>();
-        switch (cond) {
-            case "year":
-                try {
-                    int year = ((LocalDate) request.getAttribute("scheduleDate")).getYear();
-                    List<Schedule> schedules = scheduleService.getSchedules(year);
-                    schedulesGroup = schedules.stream().collect(Collectors.groupingBy(Schedule::getScheduleDate));
-                    model.addAttribute("SchedulesGroup", schedulesGroup);
-                } catch (Exception e) {
-                    model.addAttribute("Error","Post list failed !");
-                    LOGGER.error("Post list failed ! [{}]", cond);
+        
+        try {
+            LocalDate startDate = LocalDate.parse(startDateStr);
+            LocalDate endDate = LocalDate.parse(endDateStr);
+
+            LOGGER.info("Post list : start - {} end - {}", startDate, endDate);
+
+            if (startDate.isAfter(endDate)) {
+                model.addAttribute("Error", "start_date is after end_date!");
+            } else {
+                List<Schedule> schedules = new LinkedList<>();
+                
+                while (!startDate.isAfter(endDate)) {
+                    try {
+                        schedules.addAll(scheduleService.getSchedules(startDate));
+                    } catch (ScheduleException e) {
+                        LOGGER.warn("Error fetching schedules for date: {}. Error: {}", startDate, e.getMessage());
+                    }
+                    startDate = startDate.plusDays(1);
                 }
-                break;
-            case "month":
-                try {
-                    int year = (int)request.getAttribute("year");
-                    int month = (int)request.getAttribute("month");
-                    List<Schedule> schedules = scheduleService.getSchedules(year, month);
-                    schedulesGroup = schedules.stream().collect(Collectors.groupingBy(Schedule::getScheduleDate));
-                    model.addAttribute("SchedulesGroup", schedulesGroup);
-                } catch (Exception e) {
-                    model.addAttribute("Error","Post list failed !");
-                    LOGGER.error("post list failed ! [{}]", cond);
-                }
-                break;
-            case "day":
-                try {
-                    int year = (int)request.getAttribute("year");
-                    int month = (int)request.getAttribute("month");
-                    int day = (int)request.getAttribute("day");
-                    LocalDate localDate = LocalDate.of(year, month, day);
-                    List<Schedule> schedules = scheduleService.getSchedules(localDate);
-                    schedulesGroup = schedules.stream().collect(Collectors.groupingBy(Schedule::getScheduleDate));
-                    model.addAttribute("SchedulesGroup", schedulesGroup);
-                } catch (Exception e) {
-                    model.addAttribute("Error","Post list failed !");
-                    LOGGER.error("post list failed ! [{}]", cond);
-                }
-                break;
-            default:
-                model.addAttribute("Error","Post list failed !");
-                LOGGER.error("post list failed ! [{}]", cond);
+                
+                schedulesGroup = schedules.stream().collect(Collectors.groupingBy(Schedule::getScheduleDate));
+                model.addAttribute("StartDate", startDate.minusDays(1));
+                model.addAttribute("EndDate", endDate);
+                model.addAttribute("SchedulesGroup", schedulesGroup);
+            }
+        } catch (Exception e) {
+            model.addAttribute("Error", "Post list failed!");
+            model.addAttribute("StartDate", LocalDate.now());
+            model.addAttribute("EndDate", LocalDate.now());
+            LOGGER.error("Post list failed!", e);
         }
+        
         return "/list";
     }
+
 }

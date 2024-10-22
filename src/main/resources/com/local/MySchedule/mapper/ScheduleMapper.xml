@@ -2,35 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.local.MySchedule.dao.ScheduleMapper">
+    <resultMap id="ScheduleResultMap" type="com.local.MySchedule.entity.Schedule">
+        <id property="scheduleDate" column="schedule_date" />
+        <result property="startTime" column="start_time" />
+        <result property="endTime" column="end_time" />
+        <result property="title" column="title" />
+        <result property="description" column="description" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+        
+        <!-- 这里处理 ScheduleType 的映射 -->
+        <association property="scheduleType" javaType="com.local.MySchedule.entity.ScheduleType">
+            <result property="typeId" column="type_id" />
+            <result property="typeName" column="type_name" />
+            <result property="typeDescription" column="type_description" />
+        </association>
+    </resultMap>
 
     <!-- 根据日期查询日程 -->
-    <select id="selectSchedulesByDate" parameterType="java.time.LocalDate" resultType="com.local.MySchedule.entity.Schedule">
-        SELECT schedule_date AS scheduleDate, start_time AS startTime, end_time AS endTime, title, type_id AS typeId, 
-               description, create_time AS createTime, update_time AS updateTime
+    <select id="selectSchedulesByDate" parameterType="java.time.LocalDate" resultMap="ScheduleResultMap">
+        SELECT schedule_date, start_time, end_time, title, type_id, description, create_time, update_time
         FROM schedule_record
         WHERE schedule_date = #{scheduleDate}
     </select>
 
     <!-- 根据类型查询日程 -->
-    <select id="selectSchedulesByType" parameterType="int" resultType="com.local.MySchedule.entity.Schedule">
-        SELECT schedule_date AS scheduleDate, start_time AS startTime, end_time AS endTime, title, type_id AS typeId, 
-                description, create_time AS createTime, update_time AS updateTime
+    <select id="selectSchedulesByType" parameterType="int" resultMap="ScheduleResultMap">
+        SELECT schedule_date, start_time, end_time, title, type_id, description, create_time, update_time
         FROM schedule_record
         WHERE type_id = #{typeId}
     </select>
 
     <!-- 根据类型和日期查询日程 -->
-    <select id="selectSchedulesByTypeAndDate" parameterType="map" resultType="com.local.MySchedule.entity.Schedule">
-        SELECT schedule_date AS scheduleDate, start_time AS startTime, end_time AS endTime, title, type_id AS typeId, 
-               description, create_time AS createTime, update_time AS updateTime
+    <select id="selectSchedulesByTypeAndDate" parameterType="map" resultMap="ScheduleResultMap">
+        SELECT schedule_date, start_time, end_time, title, type_id, description, create_time, update_time
         FROM schedule_record
-        WHERE type_id = #{typeId} AND schedule_date = #{scheduleDate}
+        WHERE type_id = #{scheduleType.typeId} AND schedule_date = #{scheduleDate}
     </select>
 
     <!-- 根据时间查询日程 -->
-    <select id="selectScheduleByTime" parameterType="map" resultType="com.local.MySchedule.entity.Schedule">
-        SELECT schedule_date AS scheduleDate, start_time AS startTime, end_time AS endTime, title, type_id AS typeId, 
-               description, create_time AS createTime, update_time AS updateTime
+    <select id="selectScheduleByTime" parameterType="map" resultMap="ScheduleResultMap">
+        SELECT schedule_date, start_time, end_time, title, type_id, description, create_time, update_time
         FROM schedule_record
         WHERE start_time = #{startTime} AND end_time = #{endTime}
     </select>
@@ -38,14 +50,14 @@
     <!-- 创建日程 -->
     <insert id="createSchedule" parameterType="com.local.MySchedule.entity.Schedule">
         INSERT INTO schedule_record (schedule_date, start_time, end_time, title, type_id, description, create_time, update_time)
-        VALUES (#{scheduleDate}, #{startTime}, #{endTime}, #{title}, #{type.typeId}, #{description}, #{createTime}, #{updateTime})
+        VALUES (#{scheduleDate}, #{startTime}, #{endTime}, #{title}, #{scheduleType.typeId}, #{description}, #{createTime}, #{updateTime})
     </insert>
 
     <!-- 更新日程 -->
     <update id="updateSchedule" parameterType="map">
         UPDATE schedule_record
         SET title = #{schedule.title}, 
-            type_id = #{schedule.type.typeId}, 
+            type_id = #{schedule.scheduleType.typeId}, 
             description = #{schedule.description}, 
             update_time = #{schedule.updateTime}
         WHERE start_time = #{startTime} AND end_time = #{endTime} AND schedule_date = #{scheduleDate}

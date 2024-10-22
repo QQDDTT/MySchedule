@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>日程清单</title>
+    <link rel="stylesheet" href="/css/list.css">
 </head>
 <body>
     <h1>日程清单</h1>
-    <form action="/list">
-        <input type="date" id="date" name="date" th:value="${@dateFormatUtil.formatDate(Date)}">
+    <form action="/list" method="POST">
+        <input type="date" id="start_date" name="start_date" th:value="${@dateFormatUtil.formatDate(StartDate)}">
+        <input type="date" id="end_date" name="end_date" th:value="${@dateFormatUtil.formatDate(EndDate)}">
         <button type="submit">检索</button>
     </form>
     <table>
@@ -22,19 +24,21 @@
                 <td th:text="${@dateFormatUtil.formatDate(Entry.key)}"></td>
                 <td>
                     <div id="schedule" name="schedule" th:each="Schedule : ${Entry.value}">
-                        <p th:text="${Schedule.title}"></p><br>
-                        <p th:text="${Schedule.description}"></p><br>
+                        <p th:text="${Schedule.title}"></p>
+                        <!-- <p th:text="${Schedule.description}"></p><br>
                         <p th:text="${@dateFormatUtil.formatTime(Schedule.startTime)}"></p> - 
-                        <p th:text="${@dateFormatUtil.formatTime(Schedule.endTime)}"></p>
+                        <p th:text="${@dateFormatUtil.formatTime(Schedule.endTime)}"></p> -->
                     </div>
                     <p th:if="${#lists.isEmpty(Entry.value)}">无日程</p>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div th:if="${Error}">
-        <p id="error" name="error" th:text="${Error}"></p>
-    </div>
-    <p><a href="/home">返回首页</a></p>
+    <footer>
+        <p><a href="/home">返回首页</a></p>
+        <div th:if="${Error}">
+            <p id="error" name="error" th:text="${Error}"></p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -15,9 +15,9 @@ public class Schedule {
     private LocalTime startTime;
     private LocalTime endTime;
     private String title;
-    private ScheduleType type;
+    private ScheduleType scheduleType;
     private String description;
     private LocalDateTime createTime;
-    private LocalDateTime upDateTime;
+    private LocalDateTime updateTime;
 
 }
