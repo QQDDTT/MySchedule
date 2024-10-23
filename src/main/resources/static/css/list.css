@@ -76,6 +76,12 @@ th, td {
     height: 40px;
 }
 
+.schedule_day {
+    display: flex;
+    justify-content: space-between; /* 子元素水平分布 */
+    align-items: center; /* 如果子元素高度不一致，保持垂直方向居中 */
+}
+
 /* 调整列宽 */
 th:nth-child(1), td:nth-child(1) {
     width: 15%; /* 第一列宽度 */

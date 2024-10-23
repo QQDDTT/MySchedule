@@ -19,15 +19,21 @@
 
         <label for="type">选择日程类型：</label>
         <select id="typeId" name="typeId" required>
+            <!-- 选中已存在的 scheduleType -->
             <option th:if="${Schedule.scheduleType}" disabled selected
                 th:value="${Schedule.scheduleType.typeId}"
-                th:text="${Schedule.scheduleType.typeName}">
+                th:text="${Schedule.scheduleType.typeName}"
+                th:style="'background-color:' + ${Schedule.scheduleType.bgColor}">
             </option>
+        
+            <!-- 其他 scheduleType 选项 -->
             <option th:each="ScheduleType : ${ScheduleTypes}"
                 th:value="${ScheduleType.typeId}"
-                th:text="${ScheduleType.typeName}">
+                th:text="${ScheduleType.typeName}"
+                th:style="'background-color:' + ${ScheduleType.bgColor}">
             </option>
         </select>
+        
 
         <label for="scheduleDate">日期：</label>
         <input type="date" id="scheduleDate" name="scheduleDate" th:value="${@dateFormatUtil.formatDate(Schedule.scheduleDate)}" required>
@@ -66,5 +72,6 @@
     </div>
 
     <p class="back-link"><a href="/home">返回首页</a></p>
+
 </body>
 </html>

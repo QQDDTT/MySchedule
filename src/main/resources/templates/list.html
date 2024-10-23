@@ -22,12 +22,19 @@
         <tbody>
             <tr th:each="Entry: ${SchedulesGroup.entrySet()}">
                 <td th:text="${@dateFormatUtil.formatDate(Entry.key)}"></td>
-                <td>
+                <td class="schedule_day">
+                    <!-- <strong id="schedule" name="schedule" th:each="Schedule : ${Entry.value}">
+                        <ul >
+                            <li th:text="${Schedule.title}"
+                            th:style="'background-color:' + ${Schedule.scheduleType.bgColor}"></li>
+                        </ul>
+                    </strong> -->
                     <div id="schedule" name="schedule" th:each="Schedule : ${Entry.value}">
-                        <p th:text="${Schedule.title}"></p>
-                        <!-- <p th:text="${Schedule.description}"></p><br>
+                        <p th:text="${Schedule.title}"
+                            th:style="'background-color:' + ${Schedule.scheduleType.bgColor}"></p>
+                        <p th:text="${Schedule.description}"></p><br>
                         <p th:text="${@dateFormatUtil.formatTime(Schedule.startTime)}"></p> - 
-                        <p th:text="${@dateFormatUtil.formatTime(Schedule.endTime)}"></p> -->
+                        <p th:text="${@dateFormatUtil.formatTime(Schedule.endTime)}"></p>
                     </div>
                     <p th:if="${#lists.isEmpty(Entry.value)}">无日程</p>
                 </td>

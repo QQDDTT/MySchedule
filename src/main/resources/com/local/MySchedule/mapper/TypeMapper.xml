@@ -8,31 +8,32 @@
         <id property="typeId" column="type_id" />
         <result property="typeName" column="type_name" />
         <result property="typeDescription" column="type_description" />
+        <result property="bgColor" column="bg_color" />
     </resultMap>
 
     <!-- 查询所有日程类型 -->
     <select id="selectScheduleTypes" resultMap="ScheduleTypeResultMap">
-        SELECT type_id, type_name, type_description
+        SELECT type_id, type_name, type_description, bg_color
         FROM schedule_type
     </select>
 
     <!-- 根据 ID 查询日程类型 -->
     <select id="selectScheduleTypeById" parameterType="int" resultMap="ScheduleTypeResultMap">
-        SELECT type_id, type_name, type_description
+        SELECT type_id, type_name, type_description, bg_color
         FROM schedule_type
         WHERE type_id = #{typeId}
     </select>
 
     <!-- 创建日程类型 -->
     <insert id="createScheduleType" parameterType="com.local.MySchedule.entity.ScheduleType">
-        INSERT INTO schedule_type (type_name, type_description)
-        VALUES (#{typeName}, #{typeDescription})
+        INSERT INTO schedule_type (type_name, type_description, , bg_color)
+        VALUES (#{typeName}, #{typeDescription}, #{bgColor})
     </insert>
 
     <!-- 更新日程类型 -->
     <update id="updateScheduleType" parameterType="com.local.MySchedule.entity.ScheduleType">
         UPDATE schedule_type
-        SET type_name = #{typeName}, type_description = #{typeDescription}
+        SET type_name = #{typeName}, type_description = #{typeDescription}, bg_color = #{bgColor}
         WHERE type_id = #{typeId}
     </update>
 

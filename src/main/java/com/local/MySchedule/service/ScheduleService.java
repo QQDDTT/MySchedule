@@ -128,13 +128,15 @@ public class ScheduleService {
      * @return 该日期的所有日程列表
      * @throws ScheduleException 如果该日期没有日程，则抛出异常
      */
-    public List<Schedule> getSchedules (LocalDate scheduleDate) throws ScheduleException {
-        List<Schedule> schedules = scheduleMapper.selectSchedulesByDate(scheduleDate);
-        if (schedules.size() == 0) {
-            LOGGER.error("Schedules in date : " + scheduleDate.toString() + " is not exists !");
-            throw new ScheduleException("Schedules in date : " + scheduleDate.toString() + " is not exists !");
+    public List<Schedule> getScheduleByDate (LocalDate scheduleDate) throws ScheduleException {
+        try {
+            List<Schedule> schedules = scheduleMapper.selectSchedulesByDate(scheduleDate);
+            LOGGER.info("Select schedules by date : {} size : {}", scheduleDate, schedules.size());
+            return schedules;
+        } catch (Exception e) {
+            LOGGER.error("Select schedules in date : {} failed !", scheduleDate);
+            throw new ScheduleException("Select schedules in date : " + scheduleDate.toString() + " failed !");
         }
-        return schedules;
     }
 
     /**

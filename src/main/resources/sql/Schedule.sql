@@ -4,11 +4,12 @@ CREATE DATABASE 'schedule_db';
 CREATE TABLE schedule_type (
     type_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '类型ID',
     type_name VARCHAR(16) NOT NULL COMMENT '类型名称',
-    type_description VARCHAR(128) NOT NULL COMMENT '类型描述'
+    type_description VARCHAR(128) NOT NULL COMMENT '类型描述',
+    bg_color VARCHAR(7) NOT NULL DEFAULT '#FFFFFF' COMMENT '背景色'
 );
 
 
-CREATE TABLE schedule_record (
+CREATE TABLE schedule (
     schedule_date DATE NOT NULL COMMENT '日期',
     start_time TIME NOT NULL COMMENT '开始时间',
     end_time TIME NOT NULL COMMENT '结束时间',
@@ -22,6 +23,6 @@ CREATE TABLE schedule_record (
     PRIMARY KEY (schedule_date, start_time, end_time),
 
     -- 添加索引
-    INDEX idx_type_id (type_id),
-    INDEX idx_date (schedule_date)
+    INDEX type_id (type_id),
+    INDEX schedule_date (schedule_date)
 );

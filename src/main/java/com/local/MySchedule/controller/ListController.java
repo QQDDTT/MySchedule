@@ -39,7 +39,7 @@ public class ListController {
         Map<LocalDate, List<Schedule>> schedulesGroup = new TreeMap<>();
         model.addAttribute("ScheduleDate", scheduleDate);
         try {
-            List<Schedule> schedules = scheduleService.getSchedules(scheduleDate);
+            List<Schedule> schedules = scheduleService.getScheduleByDate(scheduleDate);
             schedulesGroup.put(scheduleDate, schedules);
         } catch (ScheduleException e) {
             model.addAttribute("Error", "Select schedule failed !");
@@ -75,13 +75,12 @@ public class ListController {
                 
                 while (!startDate.isAfter(endDate)) {
                     try {
-                        schedules.addAll(scheduleService.getSchedules(startDate));
+                        schedules.addAll(scheduleService.getScheduleByDate(startDate));
                     } catch (ScheduleException e) {
                         LOGGER.warn("Error fetching schedules for date: {}. Error: {}", startDate, e.getMessage());
                     }
                     startDate = startDate.plusDays(1);
                 }
-                
                 schedulesGroup = schedules.stream().collect(Collectors.groupingBy(Schedule::getScheduleDate));
                 model.addAttribute("StartDate", startDate.minusDays(1));
                 model.addAttribute("EndDate", endDate);

@@ -10,52 +10,61 @@
         <result property="description" column="description" />
         <result property="createTime" column="create_time" />
         <result property="updateTime" column="update_time" />
-        
-        <!-- 这里处理 ScheduleType 的映射 -->
+
+        <!-- 处理 ScheduleType 的映射 -->
         <association property="scheduleType" javaType="com.local.MySchedule.entity.ScheduleType">
             <result property="typeId" column="type_id" />
             <result property="typeName" column="type_name" />
             <result property="typeDescription" column="type_description" />
+            <result property="bgColor" column="bg_color" />
         </association>
     </resultMap>
 
-    <!-- 根据日期查询日程 -->
+    <!-- 根据日期查询日程，添加JOIN操作 -->
     <select id="selectSchedulesByDate" parameterType="java.time.LocalDate" resultMap="ScheduleResultMap">
-        SELECT schedule_date, start_time, end_time, title, type_id, description, create_time, update_time
-        FROM schedule_record
-        WHERE schedule_date = #{scheduleDate}
+        SELECT s.schedule_date, s.start_time, s.end_time, s.title, s.description, s.create_time, s.update_time,
+               st.type_id, st.type_name, st.type_description, st.bg_color
+        FROM schedule s
+        JOIN schedule_type st ON s.type_id = st.type_id
+        WHERE s.schedule_date = #{scheduleDate}
     </select>
 
-    <!-- 根据类型查询日程 -->
+    <!-- 根据类型查询日程，添加JOIN操作 -->
     <select id="selectSchedulesByType" parameterType="int" resultMap="ScheduleResultMap">
-        SELECT schedule_date, start_time, end_time, title, type_id, description, create_time, update_time
-        FROM schedule_record
-        WHERE type_id = #{typeId}
+        SELECT s.schedule_date, s.start_time, s.end_time, s.title, s.description, s.create_time, s.update_time,
+               st.type_id, st.type_name, st.type_description, st.bg_color
+        FROM schedule s
+        JOIN schedule_type st ON s.type_id = st.type_id
+        WHERE s.type_id = #{typeId}
     </select>
 
-    <!-- 根据类型和日期查询日程 -->
+    <!-- 根据类型和日期查询日程，添加JOIN操作 -->
     <select id="selectSchedulesByTypeAndDate" parameterType="map" resultMap="ScheduleResultMap">
-        SELECT schedule_date, start_time, end_time, title, type_id, description, create_time, update_time
-        FROM schedule_record
-        WHERE type_id = #{scheduleType.typeId} AND schedule_date = #{scheduleDate}
+        SELECT s.schedule_date, s.start_time, s.end_time, s.title, s.description, s.create_time, s.update_time,
+               st.type_id, st.type_name, st.type_description, st.bg_color
+        FROM schedule s
+        JOIN schedule_type st ON s.type_id = st.type_id
+        WHERE s.type_id = #{scheduleType.typeId} AND s.schedule_date = #{scheduleDate}
     </select>
 
-    <!-- 根据时间查询日程 -->
+    <!-- 根据时间查询日程，添加JOIN操作 -->
     <select id="selectScheduleByTime" parameterType="map" resultMap="ScheduleResultMap">
-        SELECT schedule_date, start_time, end_time, title, type_id, description, create_time, update_time
-        FROM schedule_record
-        WHERE start_time = #{startTime} AND end_time = #{endTime}
+        SELECT s.schedule_date, s.start_time, s.end_time, s.title, s.description, s.create_time, s.update_time,
+               st.type_id, st.type_name, st.type_description, st.bg_color
+        FROM schedule s
+        JOIN schedule_type st ON s.type_id = st.type_id
+        WHERE s.start_time = #{startTime} AND s.end_time = #{endTime}
     </select>
 
     <!-- 创建日程 -->
     <insert id="createSchedule" parameterType="com.local.MySchedule.entity.Schedule">
-        INSERT INTO schedule_record (schedule_date, start_time, end_time, title, type_id, description, create_time, update_time)
+        INSERT INTO schedule (schedule_date, start_time, end_time, title, type_id, description, create_time, update_time)
         VALUES (#{scheduleDate}, #{startTime}, #{endTime}, #{title}, #{scheduleType.typeId}, #{description}, #{createTime}, #{updateTime})
     </insert>
 
     <!-- 更新日程 -->
     <update id="updateSchedule" parameterType="map">
-        UPDATE schedule_record
+        UPDATE schedule
         SET title = #{schedule.title}, 
             type_id = #{schedule.scheduleType.typeId}, 
             description = #{schedule.description}, 
@@ -65,7 +74,7 @@
 
     <!-- 删除日程 -->
     <delete id="deleteSchedule" parameterType="map">
-        DELETE FROM schedule_record
+        DELETE FROM schedule
         WHERE start_time = #{startTime} AND end_time = #{endTime} AND schedule_date = #{scheduleDate}
     </delete>
 
