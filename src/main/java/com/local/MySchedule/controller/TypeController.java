@@ -1,15 +1,20 @@
 package com.local.MySchedule.controller;
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.local.MySchedule.common.ScheduleException;
+import com.local.MySchedule.entity.ScheduleType;
 import com.local.MySchedule.service.TypeService;
 
 import org.springframework.ui.Model;
@@ -24,15 +29,51 @@ public class TypeController {
     private TypeService typeService;
     
     @GetMapping("/types")
-    public String getTypes(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String getTypes(Model model) {
+        LOGGER.info("Get types");
+        try {
+            List<ScheduleType> scheduleTypes = typeService.getType();
+            model.addAttribute("ScheduleTypes", scheduleTypes);
+        } catch (ScheduleException e) {
+            LOGGER.error("Get types failed ! {}", e.getMessage());
+            model.addAttribute("Error", "Get types failed !");
+        }
         return "types";
     }
     
-    @PostMapping("/type")
-    public String createType(HttpServletRequest request, HttpServletResponse response, Model model) {
+    @PostMapping("/type/{action}")
+    public String createType(@PathVariable("action") String action,
+                            @RequestParam("type_id") int typeId,
+                            @RequestParam("type_name") String typrName,
+                            @RequestParam("type_description") String typeDescription,
+                            @RequestParam("bg_color") String bgColor,
+                            Model model) {
+        LOGGER.info("Post types action : {}",action);
+        try {
+            switch (action) {
+                case "create":
+                    typeService.createScheduleType(typrName, typeDescription, bgColor);
+                    break;
+                case "update":
+                    typeService.updateScheduleType(typeId, typrName, typeDescription, bgColor);
+                    break;
+                case "dalete":
+                    typeService.deleteScheduleType(typeId);
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            LOGGER.error("Post types failed ! {}", e.getMessage());
+            model.addAttribute("Error", "Post types [" + action + "] failed !");
+        }
+        try {
+            List<ScheduleType> scheduleTypes = typeService.getType();
+            model.addAttribute("ScheduleTypes", scheduleTypes);
+        } catch (ScheduleException e) {
+            LOGGER.error("Get types failed ! {}", e.getMessage());
+            model.addAttribute("Error", "Get types failed !");
+        }
         return "types";
     }
-
-
-    
 }

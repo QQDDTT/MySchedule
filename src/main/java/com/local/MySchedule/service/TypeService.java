@@ -24,14 +24,13 @@ public class TypeService {
      * @throws ScheduleException
      */
     public List<ScheduleType> getType () throws ScheduleException{
-        List<ScheduleType> scheduleTypes = typeMapper.selectScheduleTypes();
-        if (scheduleTypes == null || scheduleTypes.isEmpty()) {
-            LOGGER.error("No schedule types found");
-            throw new IllegalArgumentException("No schedule types found");
-        } else {
-            LOGGER.debug("get schedule types size {}", scheduleTypes.size());
+        try {
+            List<ScheduleType> scheduleTypes = typeMapper.selectScheduleTypes();
+            LOGGER.info("get schedule types size {}", scheduleTypes.size());
+            return scheduleTypes;
+        } catch (Exception e) {
+            throw new ScheduleException("Select schedule types failed !");
         }
-        return scheduleTypes;
     }
 
     /**
@@ -55,7 +54,7 @@ public class TypeService {
      * @param typeDescription 类型描述
      * @throws ScheduleException
      */
-    public void createScheduleType (String typeName, String typeDescription) throws ScheduleException{
+    public void createScheduleType (String typeName, String typeDescription, String bgColor) throws ScheduleException{
         List<ScheduleType> types = getType();
         for (ScheduleType type : types) {
             if (type.getTypeName().equals(typeName)) {
@@ -66,6 +65,7 @@ public class TypeService {
         ScheduleType type = new ScheduleType();
         type.setTypeName(typeName);
         type.setTypeDescription(typeDescription);
+        type.setBgColor(bgColor);
         boolean result = typeMapper.createScheduleType(type);
         if (!result) {
             LOGGER.error("Create schedule type failed !");
@@ -80,13 +80,14 @@ public class TypeService {
      * @param typeDescription 类型描述
      * @throws ScheduleException
      */
-    public void updateScheduleType (int typeId, String typeName, String typeDescription) throws ScheduleException {
+    public void updateScheduleType (int typeId, String typeName, String typeDescription, String bgColor) throws ScheduleException {
         ScheduleType type = getTypeById(typeId);
         if (type == null || type.getTypeId() == 0) {
             throw new ScheduleException("Type id : " + typeId + "is not exists");
         }
         type.setTypeName(typeName);
         type.setTypeDescription(typeDescription);
+        type.setBgColor(bgColor);
         boolean result = typeMapper.updateScheduleType(type);
         if (!result) {
             LOGGER.error("Update schedule type failed !");
