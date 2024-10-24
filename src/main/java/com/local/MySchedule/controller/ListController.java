@@ -58,8 +58,8 @@ public class ListController {
      */
     @PostMapping("/list")
     public String postList(@RequestParam("start_date") String startDateStr, 
-                        @RequestParam("end_date") String endDateStr, 
-                        Model model) {
+                            @RequestParam("end_date") String endDateStr, 
+                            Model model) {
         Map<LocalDate, List<Schedule>> schedulesGroup = new TreeMap<>();
         
         try {
@@ -81,7 +81,9 @@ public class ListController {
                     }
                     date = date.plusDays(1);
                 }
-                schedulesGroup = schedules.stream().collect(Collectors.groupingBy(Schedule::getScheduleDate));
+                schedulesGroup = schedules.stream()
+                                        .collect(Collectors.groupingBy(Schedule::getScheduleDate));
+                LOGGER.debug("SchedulesGroup keys: {}", schedulesGroup.keySet().toArray());
                 model.addAttribute("StartDate", startDate);
                 model.addAttribute("EndDate", endDate);
                 model.addAttribute("SchedulesGroup", schedulesGroup);

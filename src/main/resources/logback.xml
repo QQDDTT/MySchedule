@@ -7,7 +7,7 @@
     <property name="log.charset" value="UTF-8" />
     <property name="log.pattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%thread] [%logger{50}] [%M] [%line] - %msg%n" />
     <property name="log.pattern.short" value="%date{yyyyMMdd HH:mm:ss.SSS}-%msg%n" />
-    <property name="log.pattern.color" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%-5p) %clr(%t){magenta} %clr(---){faint} %clr([%logger{50}]){cyan} %clr(:){faint} %m%n%wEx" />
+    <property name="log.pattern.color" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%-5p) %clr(%thread{4}){magenta} %clr(---){faint} %clr([%logger{0}]){cyan} %clr(:){faint} %m%n%wEx" />
 
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
     <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />

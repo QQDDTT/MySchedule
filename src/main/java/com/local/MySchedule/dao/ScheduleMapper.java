@@ -5,14 +5,12 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import com.local.MySchedule.entity.Schedule;
 
 @Mapper
 public interface ScheduleMapper {
 
-    public List<Schedule> selectSchedulesByDate (@Param("scheduleDate") LocalDate scheduleDate);
+    public List<Schedule> selectSchedulesByDate (LocalDate scheduleDate);
 
     public List<Schedule> selectSchedulesByTypeId (int typeId);
 

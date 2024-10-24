@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>类型设置</title>
+    <link rel="stylesheet" href="/css/type.css">
+</head>
+<body>
+    <h1>类型设置</h1>
+    <select id="schedule_type" name="schedule_type">
+        <option th:each="ScheduleType : ${ScheduleTypes}" 
+                th:value="${type.id}" 
+                th:text="${type.name}"
+                th:type="'background-color:' + ${ScheduleType.bgColor}">
+        </option>
+    </select>
+    <form action="/type/update" method="POST">
+        <input type="hidden" name="id" th:value="${type.id}">
+    </form>
+
+
+
+
+    <form action="/type" method="POST">
+        <input type="date" id="start_date" name="start_date" th:value="${@dateFormatUtil.formatDate(StartDate)}">
+        <input type="date" id="end_date" name="end_date" th:value="${@dateFormatUtil.formatDate(EndDate)}">
+        <button type="submit">检索</button>
+    </form>
+</body>
+</html>

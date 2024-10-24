@@ -3,7 +3,7 @@
 
 <mapper namespace="com.local.MySchedule.dao.ScheduleMapper">
     <resultMap id="ScheduleResultMap" type="com.local.MySchedule.entity.Schedule">
-        <id property="scheduleDate" column="schedule_date" />
+        <result property="scheduleDate" column="schedule_date" />
         <result property="startTime" column="start_time" />
         <result property="endTime" column="end_time" />
         <result property="title" column="title" />
