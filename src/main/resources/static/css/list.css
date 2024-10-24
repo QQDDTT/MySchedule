@@ -104,6 +104,29 @@ tbody tr {
     width: 100%; /* 行宽度 */
 }
 
+/* 行悬停效果 */
+.schedule-type {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* 时间样式 */
+.schedule-title {
+    font-size: 1.1em;
+    margin-right: 10px;
+}
+
+/* 描述样式 */
+.schedule-description {
+    color: #666;
+    margin-right: 10px;
+}
+
+/* 时间样式 */
+.schedule-time {
+    float: right;
+}
+
 /* 错误信息样式 */
 #error {
     color: red;

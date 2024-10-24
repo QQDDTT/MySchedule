@@ -80,6 +80,7 @@ public class ScheduleService {
         try {
             List<Schedule> schedules = scheduleMapper.selectSchedulesByDate(scheduleDate);
             LOGGER.info("Select schedules by date : {} size : {}", scheduleDate, schedules.size());
+            LOGGER.debug("Schedules : {}", schedules.toArray());
             return schedules;
         } catch (Exception e) {
             LOGGER.error("Select schedules in date : {} failed !", scheduleDate);
@@ -97,7 +98,10 @@ public class ScheduleService {
      */
     public Schedule getScheduleByTime (LocalDate scheduleDate, LocalTime startTime, LocalTime endTime) throws ScheduleException {
         try {
-            return scheduleMapper.selectScheduleByTime(scheduleDate, startTime, endTime);
+            Schedule schedule = scheduleMapper.selectScheduleByTime(scheduleDate, startTime, endTime);
+            LOGGER.info("Select schedule by start : {} end : {} : {}", startTime, endTime, schedule);
+            LOGGER.debug("Schedule : {}", schedule);
+            return schedule;
         } catch (Exception e) {
             LOGGER.error("selectScheduleByTime failed");
             throw new ScheduleException("Get schedule by start : " + startTime.toString() + " end : " + endTime.toString() + " failed !");
@@ -117,8 +121,8 @@ public class ScheduleService {
     public void createSchedule (LocalDate scheduleDate, LocalTime startTime, LocalTime endTime, String title, int typeId, String description) throws ScheduleException {
         LocalDateTime createTime = LocalDateTime.now();
         if (title.isBlank()) {
-            LOGGER.error("标题不能为空!");
-            throw new ScheduleException("标题不能为空!");
+            LOGGER.error("Title can not be empty !");
+            throw new ScheduleException("Title can not be empty !");
         }
         Schedule schedule = new Schedule();
         schedule.setScheduleDate(scheduleDate);
@@ -133,9 +137,9 @@ public class ScheduleService {
         boolean result = scheduleMapper.createSchedule(schedule);
 
         if (!result) {
-            LOGGER.error("创建计划失败！");
+            LOGGER.error("Create schedule failed !");
             LOGGER.error(schedule.toString());
-            throw new ScheduleException("创建计划失败！");
+            throw new ScheduleException("Create schedule failed !");
         }
     }
 
