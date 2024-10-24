@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -60,8 +61,6 @@ public class ListController {
     public String postList(@RequestParam("start_date") String startDateStr, 
                             @RequestParam("end_date") String endDateStr, 
                             Model model) {
-        Map<LocalDate, List<Schedule>> schedulesGroup = new TreeMap<>();
-        
         try {
             LocalDate startDate = LocalDate.parse(startDateStr);
             LocalDate endDate = LocalDate.parse(endDateStr);
@@ -75,18 +74,19 @@ public class ListController {
                 LocalDate date = LocalDate.of(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth());
                 while (!date.isAfter(endDate)) {
                     try {
-                        schedules.addAll(scheduleService.getScheduleByDate(startDate));
+                        schedules.addAll(scheduleService.getScheduleByDate(date));
                     } catch (ScheduleException e) {
-                        LOGGER.warn("Error fetching schedules for date: {}. Error: {}", startDate, e.getMessage());
+                        LOGGER.warn("Error fetching schedules for date: {}. Error: {}", date, e.getMessage());
                     }
                     date = date.plusDays(1);
                 }
-                schedulesGroup = schedules.stream()
-                                        .collect(Collectors.groupingBy(Schedule::getScheduleDate));
-                LOGGER.debug("SchedulesGroup keys: {}", schedulesGroup.keySet().toArray());
+                Map<LocalDate, List<Schedule>> schedulesMap = schedules.stream()
+                .collect(Collectors.groupingBy(Schedule::getScheduleDate, TreeMap::new, Collectors.toList()));
+            
+                LOGGER.debug("SchedulesGroup size: {}", schedulesMap.size());
                 model.addAttribute("StartDate", startDate);
                 model.addAttribute("EndDate", endDate);
-                model.addAttribute("SchedulesGroup", schedulesGroup);
+                model.addAttribute("SchedulesGroup", schedulesMap);
             }
         } catch (Exception e) {
             model.addAttribute("Error", "Post list failed!");

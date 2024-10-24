@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,16 +81,16 @@ public class ScheduleService {
         try {
             List<Schedule> schedules = scheduleMapper.selectSchedulesByDate(scheduleDate);
             LOGGER.info("Select schedules by date : {} size : {}", scheduleDate, schedules.size());
-            LOGGER.debug("Schedules : {}", schedules.toArray());
+            LOGGER.debug("Schedules : {}", schedules.stream().map(Schedule::getScheduleDate).collect(Collectors.toList()));
             return schedules;
         } catch (Exception e) {
             LOGGER.error("Select schedules in date : {} failed !", scheduleDate);
-            throw new ScheduleException("Select schedules in date : " + scheduleDate.toString() + " failed !");
+            throw new ScheduleException("Select schedules in date : " + scheduleDate + " failed !");
         }
     }
 
     /**
-     * 根据开始时间和结束时间获取日程
+     * 根据开始时间和结束时间获取日程s
      * @param scheduleDate 指定的日期
      * @param startTime 开始时间
      * @param endTime 结束时间
