@@ -5,7 +5,7 @@
 
     <!-- 结果映射 -->
     <resultMap id="ScheduleTypeResultMap" type="com.local.MySchedule.entity.ScheduleType">
-        <id property="typeId" column="type_id" />
+        <result property="typeId" column="type_id" />
         <result property="typeName" column="type_name" />
         <result property="typeDescription" column="type_description" />
         <result property="bgColor" column="bg_color" />

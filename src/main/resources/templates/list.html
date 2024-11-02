@@ -25,15 +25,17 @@
                 <td class="schedule_day">
                     <div id="schedule" name="schedule" th:each="Schedule : ${Entry.value}">
                         <p th:if="${Schedule.scheduleType != null}"
-                           th:style="'background-color:' + ${Schedule.scheduleType.bgColor}">
-                            <span th:text="${Schedule.scheduleType.typeName}"></span>
-                            <span th:text="${Schedule.title}"></span>
-                            <span th:text="${Schedule.description}"></span>
-                            <span th:text="${@dateFormatUtil.formatTime(Schedule.startTime)}"></span>
+                        th:style="'background-color:' + ${Schedule.scheduleType.bgColor} + 
+                                  '; left:' + ${@dateFormatUtil.calculateLeftPosition(Schedule.startTime)} + 'px; 
+                                  width:' + ${@dateFormatUtil.calculateWidth(Schedule.startTime, Schedule.endTime)} + 'px;'">
+                            <span th:text="${Schedule.title}"></span><br/>
+                            <span style="font-size: small;" th:text="${@dateFormatUtil.formatTime(Schedule.startTime)}"></span>
                             -
-                            <span th:text="${@dateFormatUtil.formatTime(Schedule.endTime)}"></span>
+                            <span style="font-size: small;" th:text="${@dateFormatUtil.formatTime(Schedule.endTime)}"></span>
                         </p>
-                        <p th:if="${#lists.isEmpty(Entry.value)}">无日程</p>
+                        <p th:if="${Schedule == null}">
+                            <span>无日程</span>
+                        </p>
                     </div>
                 </td>
             </tr>
