@@ -5,158 +5,143 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #333;
-    margin: 0;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    min-height: 90vh; /* 使 body 至少占满整个视口高度 */
+    align-items: center;
 }
 
 /* 标题样式 */
 h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
+    font-size: 1.8em;
+    color: #333;
 }
 
 /* 表单样式 */
 form {
-    background-color: white;
-    padding: 10px; /* 缩小纵向长度 */
+    width: 100%;
+    max-width: 1200px;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%; /* 表单宽度为100% */
-    max-width: 100%; /* 最大宽度为100% */
-    margin: 0; /* 取消 margin，使其完全占用宽度 */
-    display: flex; /* 使用 Flexbox 布局 */
-    justify-content: space-between; /* 在容器中分散排列 */
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 /* 输入框样式 */
 input[type="date"] {
-    width: calc(45% - 10px); /* 每个输入框占容器的45%并减去间距 */
-    padding: 5px; /* 缩小内边距 */
+    width: 45%;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 1em;
 }
 
 /* 按钮样式 */
 button {
-    background-color: #4CAF50; /* 绿色 */
-    color: white;
+    width: 20%;
+    padding: 8px;
+    background-color: #4CAF50;
+    color: #fff;
     border: none;
-    padding: 5px 10px; /* 缩小内边距 */
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    width: 48%; /* 按钮占据余下空间 */
+    font-size: 1em;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #45a049; /* 深绿色 */
+    background-color: #45a049;
 }
 
 /* 表格样式 */
 table {
-    width: 100%; /* 确保表格宽度为100% */
-    border-collapse: collapse; /* 合并边框 */
-    margin-top: 20px; /* 表格上方的间距 */
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* 表头样式 */
 thead {
-    background-color: #4CAF50; /* 表头背景颜色 */
-    color: white;
+    background-color: #4CAF50;
+    color: #fff;
 }
 
-/* 单元格样式 */
-th, td {
-    padding: 10px;
-    border: 1px solid #ccc; /* 边框 */
-    height: 40px;
-}
-
-.schedule_day {
-    position: relative;
-    height: 50px; /* 每日程高度 */
-    border-bottom: 1px solid #ddd;
-}
-
-p {
-    margin: 0px;
-    top: 0px;
-}
-
-.schedule_day p {
-    position: absolute;
-    height: 70px;
-    padding: 0px;
-    color: #000;
-}
-
-/* 调整列宽 */
-th:nth-child(1), td:nth-child(1) {
-    width: 15%; /* 第一列宽度 */
-}
-
-th:nth-child(2), td:nth-child(2) {
-    width: 85%; /* 第二列宽度 */
-}
-
-/* 将 tbody 的 display 属性移除 */
 tbody {
-    /* 不需要 display: block; */
-    max-height: 300px; /* 最大高度 */
-    overflow-y: auto; /* 启用垂直滚动条 */
+    display: block;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
-/* 行样式 */
-tbody tr {
-    display: table-row; /* 使行正常显示 */
-    width: 100%; /* 行宽度 */
+tr {
+    display: flex;
+    width: 100%;
 }
 
-/* 行悬停效果 */
-.schedule-type {
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    display: block;
+}
+
+.date {
+    flex: 1;
+}
+
+.content {
+    flex: 6;
+    padding-left: 10px;
+    display: flex;
+    gap: 0;
+}
+
+/* 日程项样式 */
+.schedule {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    align-items: center;
+    background-color: #f9f9f9;
+}
+
+.schedule p {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+span {
     font-weight: bold;
-    margin-right: 10px;
-}
-
-/* 时间样式 */
-.schedule-title {
-    font-size: 1.1em;
-    margin-right: 10px;
-}
-
-/* 描述样式 */
-.schedule-description {
-    color: #666;
-    margin-right: 10px;
-}
-
-/* 时间样式 */
-.schedule-time {
-    float: right;
 }
 
 /* 错误信息样式 */
 #error {
     color: red;
     font-weight: bold;
-    margin-top: 20px; /* 错误信息的顶部间距 */
+    margin-top: 20px;
+    text-align: center;
 }
 
 /* 返回链接样式 */
-p a {
+footer {
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+}
+
+footer a {
     text-decoration: none;
     color: #4CAF50;
+    font-size: 1em;
 }
 
-p a:hover {
-    text-decoration: underline; /* 悬停时下划线 */
-}
-
-/* 固定位置的错误信息和返回链接 */
-footer {
-    margin-top: auto; /* 将 footer 推到页面底部 */
-    text-align: center; /* 中心对齐 */
+footer a:hover {
+    text-decoration: underline;
 }

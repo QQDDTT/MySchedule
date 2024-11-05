@@ -13,7 +13,7 @@ import java.time.LocalTime;
 public class DateFormatUtil {
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-    private static final double WIDTH_NUM = 0.78;
+    private static final double WIDTH_NUM = 0.75;
 
     // 格式化 LocalTime
     public String formatTime(LocalTime time) {

@@ -15,25 +15,32 @@
     <table>
         <thead>
             <tr>
-                <th>日期</th>
-                <th>日程</th>
+                <th class="date">日期</th>
+                <th class="content">日程</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="Entry: ${SchedulesGroup.entrySet()}">
-                <td th:text="${@dateFormatUtil.formatDate(Entry.key)}"></td>
-                <td class="schedule_day">
-                    <div id="schedule" name="schedule" th:each="Schedule : ${Entry.value}">
+                <td class="date" th:text="${@dateFormatUtil.formatDate(Entry.key)}"></td>
+                <td class="content">
+                    <div class="schedule" id="schedule" name="schedule" th:each="Schedule : ${Entry.value}">
                         <p th:if="${Schedule.scheduleType != null}"
                         th:style="'background-color:' + ${Schedule.scheduleType.bgColor} + 
                                   '; left:' + ${@dateFormatUtil.calculateLeftPosition(Schedule.startTime)} + 'px; 
                                   width:' + ${@dateFormatUtil.calculateWidth(Schedule.startTime, Schedule.endTime)} + 'px;'">
-                            <span th:text="${Schedule.title}"></span><br/>
+                            <a th:if="${Schedule.scheduleType != null}"
+                                th:href="'/plan?scheduleDate=' + ${Schedule.scheduleDate}
+                                               + '&startTime=' + ${Schedule.startTime}
+                                               + '&endTime=' + ${Schedule.endTime}"
+                                th:text="${Schedule.title}"></a>
+                               <br/>
                             <span style="font-size: small;" th:text="${@dateFormatUtil.formatTime(Schedule.startTime)}"></span>
                             -
                             <span style="font-size: small;" th:text="${@dateFormatUtil.formatTime(Schedule.endTime)}"></span>
                         </p>
-                        <p th:if="${Schedule == null}">
+                    </div>
+                    <div id="schedule" name="schedule" th:if="${Entry.value.size == 0}">
+                        <p>
                             <span>无日程</span>
                         </p>
                     </div>
@@ -42,7 +49,7 @@
         </tbody>
     </table>
     <footer>
-        <p><a href="/home">返回首页</a></p>
+        <a href="/home">返回首页</a>
         <div th:if="${Error}">
             <p id="error" name="error" th:text="${Error}"></p>
         </div>

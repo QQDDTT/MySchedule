@@ -54,7 +54,7 @@
                st.type_id, st.type_name, st.type_description, st.bg_color
         FROM schedule s
         JOIN schedule_type st ON s.type_id = st.type_id
-        WHERE s.start_time = #{startTime} AND s.end_time = #{endTime}
+        WHERE s.start_time = #{startTime} AND s.end_time = #{endTime} AND s.schedule_date = #{scheduleDate}
     </select>
 
     <!-- 创建日程 -->

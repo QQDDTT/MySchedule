@@ -85,7 +85,7 @@ public class ScheduleService {
             return schedules;
         } catch (Exception e) {
             LOGGER.error("Select schedules in date : {} failed !", scheduleDate);
-            throw new ScheduleException("Select schedules in date : " + scheduleDate + " failed !");
+            return List.of();
         }
     }
 
@@ -100,12 +100,12 @@ public class ScheduleService {
     public Schedule getScheduleByTime (LocalDate scheduleDate, LocalTime startTime, LocalTime endTime) throws ScheduleException {
         try {
             Schedule schedule = scheduleMapper.selectScheduleByTime(scheduleDate, startTime, endTime);
-            LOGGER.info("Select schedule by start : {} end : {} : {}", startTime, endTime, schedule);
+            LOGGER.info("Select schedule by start : {} end : {} : {}", startTime, endTime, scheduleDate);
             LOGGER.debug("Schedule : {}", schedule);
             return schedule;
         } catch (Exception e) {
             LOGGER.error("selectScheduleByTime failed");
-            throw new ScheduleException("Get schedule by start : " + startTime.toString() + " end : " + endTime.toString() + " failed !");
+            throw new ScheduleException("Get schedule by start : " + startTime.toString() + " end : " + endTime.toString() + " date : " + scheduleDate.toString() + " failed !");
         }
     }
 

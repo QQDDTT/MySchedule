@@ -69,19 +69,17 @@ public class ListController {
             if (startDate.isAfter(endDate)) {
                 model.addAttribute("Error", "start_date is after end_date!");
             } else {
-                List<Schedule> schedules = new LinkedList<>();
+                Map<LocalDate, List<Schedule>> schedulesMap = new TreeMap<>();
                 LocalDate date = LocalDate.of(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth());
                 while (!date.isAfter(endDate)) {
                     try {
-                        schedules.addAll(scheduleService.getScheduleByDate(date));
+                        schedulesMap.put(date, scheduleService.getScheduleByDate(date));
                     } catch (ScheduleException e) {
                         LOGGER.warn("Error fetching schedules for date: {}. Error: {}", date, e.getMessage());
                     }
                     date = date.plusDays(1);
                 }
-                Map<LocalDate, List<Schedule>> schedulesMap = schedules.stream()
-                .collect(Collectors.groupingBy(Schedule::getScheduleDate, TreeMap::new, Collectors.toList()));
-            
+
                 LOGGER.debug("SchedulesGroup size: {}", schedulesMap.size());
                 model.addAttribute("StartDate", startDate);
                 model.addAttribute("EndDate", endDate);
