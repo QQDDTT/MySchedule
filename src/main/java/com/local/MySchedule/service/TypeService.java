@@ -29,6 +29,7 @@ public class TypeService {
             LOGGER.info("get schedule types size {}", scheduleTypes.size());
             return scheduleTypes;
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             throw new ScheduleException("Select schedule types failed !");
         }
     }

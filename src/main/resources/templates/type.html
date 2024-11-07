@@ -9,22 +9,57 @@
     <h1>类型设置</h1>
     <select id="schedule_type" name="schedule_type">
         <option th:each="ScheduleType : ${ScheduleTypes}" 
-                th:value="${type.id}" 
-                th:text="${type.name}"
-                th:type="'background-color:' + ${ScheduleType.bgColor}">
+                th:value="${ScheduleType.typeId}" 
+                th:text="${ScheduleType.typeName}"
+                th:style="'background-color:' + ${ScheduleType.bgColor}">
         </option>
     </select>
-    <form action="/type/update" method="POST">
-        <input type="hidden" name="id" th:value="${type.id}">
+
+    <form id="typeForm" action="/type" method="POST">
+        <input type="hidden" id="action" name="action" value="update"/>
+        <labelbel for="typeId">类型ID：</label>
+        <input id="typeId" type="text" name="typeId" value="">
+        <labelbel for="typeName">类型名称：</label>
+        <input id="typeName" type="text" name="typeName" value="">
+        <labelbel for="bgColor">背景颜色：</label>
+        <input id="bgColor" type="color" name="bgColor" value="">
+        <labelbel for="typeDescription">描述：</label>
+        <textarea id="typeDescription" name="typeDescription" value="" rows="4" cols="50"></textarea>
     </form>
 
+    <button id="addTypeBtn" onclick="create()">添加类型</button>
+    <button id="updateTypeBtn" onclick="update()">更新类型</button>
 
+    <div th:if="${Error}">
+        <p id="error" th:text="${Error}"></p>
+    </div>
 
+    <p class="back-link"><a href="/home">返回首页</a></p>
 
-    <form action="/type" method="POST">
-        <input type="date" id="start_date" name="start_date" th:value="${@dateFormatUtil.formatDate(StartDate)}">
-        <input type="date" id="end_date" name="end_date" th:value="${@dateFormatUtil.formatDate(EndDate)}">
-        <button type="submit">检索</button>
-    </form>
+    <script type="text/javascript" th:inline="javascript">
+        const typeSelectEle = document.getElementById("schedule_type");
+        var types = /*[[${ScheduleTypes}]]*/ [];
+        typeSelectEle.addEventListener("change", function(){
+            for (var i = 0;i < types.length; i++) {
+                if (types[i]['typeId'] == typeSelectEle.value) {
+                    document.getElementById("typeId").value = types[i]['typeId'];
+                    document.getElementById("typeName").value = types[i]['typeName'];
+                    document.getElementById("bgColor").value = types[i]['bgColor'];
+                    document.getElementById("typeDescription").value = types[i]['typeDescription'];
+                    break;
+                }
+            }
+        });
+
+        function create () {
+            document.getElementById("action").value = "create";
+            document.getElementById("typeForm").submit();
+        }
+
+        function update () {
+            document.getElementById("action").value = "update";
+            document.getElementById("typeForm").submit();
+        }
+    </script>
 </body>
 </html>

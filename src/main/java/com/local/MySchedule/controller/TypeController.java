@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,9 +27,9 @@ public class TypeController {
     @Autowired
     private TypeService typeService;
     
-    @GetMapping("/types")
+    @GetMapping("/type")
     public String getTypes(Model model) {
-        LOGGER.info("Get types");
+        LOGGER.info("Get type");
         try {
             List<ScheduleType> scheduleTypes = typeService.getType();
             model.addAttribute("ScheduleTypes", scheduleTypes);
@@ -38,11 +37,11 @@ public class TypeController {
             LOGGER.error("Get types failed ! {}", e.getMessage());
             model.addAttribute("Error", "Get types failed !");
         }
-        return "types";
+        return "type";
     }
     
-    @PostMapping("/type/{action}")
-    public String createType(@PathVariable("action") String action,
+    @PostMapping("/type")
+    public String createType(@RequestParam("action") String action,
                             @RequestParam("type_id") int typeId,
                             @RequestParam("type_name") String typrName,
                             @RequestParam("type_description") String typeDescription,
@@ -74,6 +73,6 @@ public class TypeController {
             LOGGER.error("Get types failed ! {}", e.getMessage());
             model.addAttribute("Error", "Get types failed !");
         }
-        return "types";
+        return "type";
     }
 }
