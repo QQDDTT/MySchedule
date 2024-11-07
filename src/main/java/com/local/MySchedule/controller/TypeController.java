@@ -42,10 +42,10 @@ public class TypeController {
     
     @PostMapping("/type")
     public String createType(@RequestParam("action") String action,
-                            @RequestParam("type_id") int typeId,
-                            @RequestParam("type_name") String typrName,
-                            @RequestParam("type_description") String typeDescription,
-                            @RequestParam("bg_color") String bgColor,
+                            @RequestParam("typeId") int typeId,
+                            @RequestParam("typeName") String typrName,
+                            @RequestParam("typeDescription") String typeDescription,
+                            @RequestParam("bgColor") String bgColor,
                             Model model) {
         LOGGER.info("Post types action : {}",action);
         try {
