@@ -4,7 +4,10 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -13,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.local.MySchedule.common.ScheduleException;
+import com.local.MySchedule.common.ScheduleSorter;
 import com.local.MySchedule.dao.ScheduleMapper;
 import com.local.MySchedule.dao.TypeMapper;
 import com.local.MySchedule.entity.Schedule;
@@ -28,24 +32,30 @@ public class ScheduleService {
     @Autowired
     private TypeMapper typeMapper;
 
+    @Autowired
+    private ScheduleSorter scheduleSorter;
+
     /**
      * 根据类型ID获取所有日程的时长总和
      * @param typeId 类型ID
      * @return 时长
      * @throws ScheduleException
      */
-    public Duration getDurationByType (int typeId) throws ScheduleException {
+    public long getDurationByType (int typeId) throws ScheduleException {
+        LOGGER.info("Get duration by type id :{}", typeId);
         long total = 0;
         try {
             List<Schedule> schedules = scheduleMapper.selectSchedulesByTypeId(typeId);
 
             for (Schedule schedule : schedules) {
-                long seconds = Duration.between(schedule.getStartTime(), schedule.getStartTime()).toSeconds();
+                long seconds = Duration.between(schedule.getStartTime(), schedule.getEndTime()).toMinutes();
                 total += seconds;
             }
-            return Duration.ofSeconds(total);
+            LOGGER.debug("Get duration seconds :{}", total);
+            return total;
         } catch (Exception e) {
-            throw new ScheduleException("get duration failed !");
+            LOGGER.error("Get duration failed : {}", e.getCause());
+            return 0;
         }
     }
 
@@ -54,21 +64,43 @@ public class ScheduleService {
      * @param typeId 类型ID
      * @param date 指定的日期
      * @return 指定日期内该类型日程的时长
-     * @throws ScheduleException 获取时长失败时抛出异常
      */
-    public Duration geDurationByType (int typeId, LocalDate date) throws ScheduleException {
+    public long getDurationByType (int typeId, LocalDate date) {
         long total = 0;
         try {
-            List<Schedule> schedules = scheduleMapper.selectSchedulesByTypeAndDate(typeId, date);
+            List<Schedule> schedules = scheduleMapper.selectSchedulesByTypeIdAndDate(typeId, date);
 
             for (Schedule schedule : schedules) {
-                long seconds = Duration.between(schedule.getStartTime(), schedule.getStartTime()).toSeconds();
+                long seconds = Duration.between(schedule.getStartTime(), schedule.getEndTime()).toMinutes();
                 total += seconds;
             }
-            return Duration.ofSeconds(total);
+            return total;
         } catch (Exception e) {
-            throw new ScheduleException("get duration failed !");
+            LOGGER.error("Get duration failed !");
+            return 0;
         }
+    }
+
+    /**
+     * 根据类型ID和日期获取日程的时长总和
+     * @param typeId 类型ID
+     * @param startDate 开始日期
+     * @param endDate 结束日期
+     * @return 指定日期内该类型日程的时长
+     */
+    public long getDurationByType (int typeId, LocalDate startDate, LocalDate endDate) throws ScheduleException {
+        LOGGER.info("Get duration by type:{} start:{} end:{}", typeId, startDate, endDate);
+        if (startDate.isAfter(endDate)) {
+            LOGGER.error("StartDate is after than endDate !");
+            throw new ScheduleException("StartDate is after than endDate !");
+        }
+        long total = 0;
+        LocalDate date = LocalDate.of(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth());
+        while (!date.isAfter(endDate)) {
+            total += getDurationByType(typeId, date);
+            date = date.plusDays(1);
+        }
+        return total;
     }
 
     /**
@@ -82,10 +114,36 @@ public class ScheduleService {
             List<Schedule> schedules = scheduleMapper.selectSchedulesByDate(scheduleDate);
             LOGGER.info("Select schedules by date : {} size : {}", scheduleDate, schedules.size());
             LOGGER.debug("Schedules : {}", schedules.stream().map(Schedule::getScheduleDate).collect(Collectors.toList()));
-            return schedules;
+            return scheduleSorter.sortByStartTime(schedules);
         } catch (Exception e) {
             LOGGER.error("Select schedules in date : {} failed !", scheduleDate);
-            return List.of();
+            LOGGER.error("Exception : {}", e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * 根据开始日期和结束日期获取日程
+     * @param startDate 开始日期
+     * @param endDate 结束日期
+     * @return 与指定日期范围对应的日程
+     * @throws ScheduleException
+     */
+    public Map<LocalDate, List<Schedule>> getScheduleByDateRange (LocalDate startDate, LocalDate endDate) throws ScheduleException {
+        try {
+            Map<LocalDate, List<Schedule>> schedulesMap = new TreeMap<>();
+            LocalDate date = LocalDate.of(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth());
+            while (!date.isAfter(endDate)) {
+                schedulesMap.put(date, scheduleMapper.selectSchedulesByDate(date));
+                date = date.plusDays(1);
+            }
+            LOGGER.info("Select schedules by date range : {} - {} size : {}", startDate, endDate, schedulesMap.size());
+            LOGGER.debug("Schedules : {}", schedulesMap.keySet());
+            return schedulesMap;
+        } catch (Exception e) {
+            LOGGER.error("Select schedules in date range : {} - {} failed !", startDate, endDate);
+            LOGGER.error("Exception : {}", e.getMessage());
+            return new TreeMap<>();
         }
     }
 

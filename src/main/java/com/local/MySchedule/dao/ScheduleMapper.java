@@ -14,7 +14,7 @@ public interface ScheduleMapper {
 
     public List<Schedule> selectSchedulesByTypeId (int typeId);
 
-    public List<Schedule> selectSchedulesByTypeAndDate (int typeId, LocalDate scheduleDate);
+    public List<Schedule> selectSchedulesByTypeIdAndDate (int typeId, LocalDate scheduleDate);
 
     public Schedule selectScheduleByTime (LocalDate scheduleDate, LocalTime startTime, LocalTime endTime);
 

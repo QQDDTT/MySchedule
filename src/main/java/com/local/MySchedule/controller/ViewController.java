@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,48 +36,41 @@ public class ViewController {
         LOGGER.info("Get view");
         try {
             List<ScheduleType> scheduleTypes = typeService.getType();
-            Map<ScheduleType, Long> group = new TreeMap<>();
+            Map<Integer, ScheduleType> typesMap = scheduleTypes.stream().collect(Collectors.toMap(ScheduleType::getTypeId, a -> a));
+            Map<Integer, Long> typesData = new TreeMap<>();
             for (ScheduleType type : scheduleTypes) {
-                Long time = scheduleService.getDurationByType(type.getTypeId()).getSeconds();
-                group.put(type, time);
+                Long time = scheduleService.getDurationByType(type.getTypeId());
+                typesData.put(type.getTypeId(), time);
             }
-            model.addAttribute("Group", group);
+            model.addAttribute("TypesMap", typesMap);
+            model.addAttribute("TypesData", typesData);
         } catch (ScheduleException e) {
-            LOGGER.error("Get view failed ! {}", e);
+            LOGGER.error("Get view failed ! {}", e.getMessage());
             model.addAttribute("Error", "Get view failed !");
         }
-        return "/list";
+        return "view";
     }
     
     @PostMapping("/view")
-    public String postView(@RequestParam("start_date") LocalDate startDate,
-                        @RequestParam("end_date") LocalDate endDate,
+    public String postView(@RequestParam("startDate") LocalDate startDate,
+                        @RequestParam("endDate") LocalDate endDate,
                         Model model) {
-        LOGGER.info("Post view");
+        LOGGER.info("Post view start:{} end:{}", startDate, endDate);
         try {
             List<ScheduleType> scheduleTypes = typeService.getType();
-            Map<ScheduleType, Long> group = new TreeMap<>();
+            Map<Integer, ScheduleType> typesMap = scheduleTypes.stream().collect(Collectors.toMap(ScheduleType::getTypeId, a -> a));
+            Map<Integer, Long> typesData = new TreeMap<>();
             for (ScheduleType type : scheduleTypes) {
-                Long time = 0l;
-                LocalDate date = LocalDate.of(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth());
-                while (!date.isAfter(endDate)) {
-                    try {
-                        time = Long.sum(time, scheduleService.geDurationByType(type.getTypeId(), startDate).getSeconds());
-                        
-                    } catch (ScheduleException e) {
-                        LOGGER.warn("Error fetching schedules for date: {}. Error: {}", startDate, e.getMessage());
-                    }
-                    date = date.plusDays(1);
-                }
-                group.put(type, time);
+                typesData.put(type.getTypeId(), scheduleService.getDurationByType(type.getTypeId(), startDate, endDate));
             }
-            model.addAttribute("Group", group);
+            model.addAttribute("TypesMap", typesMap);
+            model.addAttribute("TypesData", typesData);
             model.addAttribute("StartDate", startDate);
             model.addAttribute("EndDate", endDate);
-        } catch (Exception e) {
-            LOGGER.error("Post view failed ! {}", e);
+        } catch (ScheduleException e) {
+            LOGGER.error("Post view failed ! {}", e.getMessage());
             model.addAttribute("Error", "Post view failed !");
         }
-        return "/view";
+        return "view";
     }
 }

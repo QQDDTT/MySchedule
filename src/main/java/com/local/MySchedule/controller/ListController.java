@@ -43,7 +43,7 @@ public class ListController {
             LOGGER.error("Select schedule failed !");
         }
         model.addAttribute("SchedulesGroup", schedulesGroup);
-        return "/list";
+        return "list";
     }
     
     /**
@@ -66,18 +66,7 @@ public class ListController {
             if (startDate.isAfter(endDate)) {
                 model.addAttribute("Error", "start_date is after end_date!");
             } else {
-                Map<LocalDate, List<Schedule>> schedulesMap = new TreeMap<>();
-                LocalDate date = LocalDate.of(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth());
-                while (!date.isAfter(endDate)) {
-                    try {
-                        schedulesMap.put(date, scheduleService.getScheduleByDate(date));
-                    } catch (ScheduleException e) {
-                        LOGGER.warn("Error fetching schedules for date: {}. Error: {}", date, e.getMessage());
-                    }
-                    date = date.plusDays(1);
-                }
-
-                LOGGER.debug("SchedulesGroup size: {}", schedulesMap.size());
+                Map<LocalDate, List<Schedule>> schedulesMap = scheduleService.getScheduleByDateRange(startDate, endDate);
                 model.addAttribute("StartDate", startDate);
                 model.addAttribute("EndDate", endDate);
                 model.addAttribute("SchedulesGroup", schedulesMap);
@@ -89,7 +78,7 @@ public class ListController {
             LOGGER.error("Post list failed!", e);
         }
         
-        return "/list";
+        return "list";
     }
 
 }

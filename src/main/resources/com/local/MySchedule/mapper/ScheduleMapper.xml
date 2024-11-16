@@ -31,7 +31,7 @@
     </select>
 
     <!-- 根据类型查询日程，添加JOIN操作 -->
-    <select id="selectSchedulesByType" parameterType="int" resultMap="ScheduleResultMap">
+    <select id="selectSchedulesByTypeId" parameterType="int" resultMap="ScheduleResultMap">
         SELECT s.schedule_date, s.start_time, s.end_time, s.title, s.description, s.create_time, s.update_time,
                st.type_id, st.type_name, st.type_description, st.bg_color
         FROM schedule s
@@ -40,12 +40,12 @@
     </select>
 
     <!-- 根据类型和日期查询日程，添加JOIN操作 -->
-    <select id="selectSchedulesByTypeAndDate" parameterType="map" resultMap="ScheduleResultMap">
+    <select id="selectSchedulesByTypeIdAndDate" resultMap="ScheduleResultMap">
         SELECT s.schedule_date, s.start_time, s.end_time, s.title, s.description, s.create_time, s.update_time,
                st.type_id, st.type_name, st.type_description, st.bg_color
         FROM schedule s
         JOIN schedule_type st ON s.type_id = st.type_id
-        WHERE s.type_id = #{scheduleType.typeId} AND s.schedule_date = #{scheduleDate}
+        WHERE s.type_id = #{typeId} AND s.schedule_date = #{scheduleDate}
     </select>
 
     <!-- 根据时间查询日程，添加JOIN操作 -->

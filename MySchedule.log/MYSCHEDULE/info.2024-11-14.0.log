@@ -1,0 +1,138 @@
+[2024-11-14 15:11:16.361] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 83670 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:11:16.371] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:11:18.392] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:11:19.014] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 2.985 seconds (process running for 4.588)
+[2024-11-14 15:12:31.626] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 84834 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:12:31.628] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:12:33.087] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:12:33.523] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 2.122 seconds (process running for 3.293)
+[2024-11-14 15:13:18.196] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 85609 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:13:18.198] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:13:19.613] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:13:20.071] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 2.095 seconds (process running for 3.326)
+[2024-11-14 15:18:44.926] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 90316 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:18:44.934] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:18:46.882] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:18:47.459] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 2.918 seconds (process running for 4.638)
+[2024-11-14 15:28:00.667] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 94409 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:28:00.673] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:28:03.263] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:28:03.970] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 3.889 seconds (process running for 6.89)
+[2024-11-14 15:33:26.259] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 98075 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:33:26.266] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:33:28.788] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:33:29.485] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 3.632 seconds (process running for 6.215)
+[2024-11-14 15:37:33.016] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 1439 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:37:33.023] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:37:35.221] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:37:35.819] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 3.306 seconds (process running for 5.635)
+[2024-11-14 15:44:30.656] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 5978 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:44:30.664] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:44:32.735] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:44:33.327] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 3.182 seconds (process running for 5.805)
+[2024-11-14 15:49:07.926] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 10116 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:49:07.935] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:49:10.640] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:49:11.582] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 4.293 seconds (process running for 6.995)
+[2024-11-14 15:50:33.780] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 11796 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:50:33.797] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:50:36.689] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:50:37.452] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 4.238 seconds (process running for 6.723)
+[2024-11-14 15:55:28.145] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 16481 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:55:28.155] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:55:30.952] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:55:31.804] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 4.194 seconds (process running for 7.019)
+[2024-11-14 15:57:28.648] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 18626 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:57:28.659] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:57:31.377] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:57:32.184] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 4.096 seconds (process running for 6.464)
+[2024-11-14 15:59:01.567] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 20246 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 15:59:01.580] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 15:59:04.175] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 15:59:04.849] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 3.831 seconds (process running for 6.213)
+[2024-11-14 16:03:52.472] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 24959 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 16:03:52.484] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 16:03:55.401] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 16:03:56.228] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 4.382 seconds (process running for 7.267)
+[2024-11-14 16:09:55.665] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 28468 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 16:09:55.678] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 16:09:58.278] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 16:09:58.755] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 3.67 seconds (process running for 5.832)
+[2024-11-14 16:15:00.526] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 33014 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 16:15:00.532] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 16:15:02.200] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 16:15:02.679] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 2.519 seconds (process running for 4.273)
+[2024-11-14 16:17:18.187] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 35226 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 16:17:18.199] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 16:17:19.691] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 16:17:20.126] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 2.315 seconds (process running for 3.827)
+[2024-11-14 16:27:07.541] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 43255 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 16:27:07.550] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 16:27:09.489] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 16:27:10.037] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 2.838 seconds (process running for 4.647)
+[2024-11-14 16:34:21.837] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 47887 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 16:34:21.842] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 16:34:23.797] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 16:34:24.245] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 2.757 seconds (process running for 4.682)
+[2024-11-14 16:37:57.210] [INFO ] [main] [com.local.MySchedule.MyScheduleApplication] [logStarting] [50] - Starting MyScheduleApplication using Java 17.0.12 with PID 50146 (/home/nick/apps/MySchedule/target/classes started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 16:37:57.217] [INFO ] [main] [com.local.MySchedule.MyScheduleApplication] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 16:37:58.650] [INFO ] [main] [o.s.boot.web.embedded.tomcat.TomcatWebServer] [initialize] [111] - Tomcat initialized with port 8090 (http)
+[2024-11-14 16:37:58.662] [INFO ] [main] [org.apache.coyote.http11.Http11NioProtocol] [log] [173] - Initializing ProtocolHandler ["http-nio-8090"]
+[2024-11-14 16:37:58.666] [INFO ] [main] [org.apache.catalina.core.StandardService] [log] [173] - Starting service [Tomcat]
+[2024-11-14 16:37:58.667] [INFO ] [main] [org.apache.catalina.core.StandardEngine] [log] [173] - Starting Servlet engine: [Apache Tomcat/10.1.30]
+[2024-11-14 16:37:58.736] [INFO ] [main] [o.a.c.core.ContainerBase.[Tomcat].[localhost].[/]] [log] [173] - Initializing Spring embedded WebApplicationContext
+[2024-11-14 16:37:58.738] [INFO ] [main] [o.s.b.w.s.c.ServletWebServerApplicationContext] [prepareWebApplicationContext] [296] - Root WebApplicationContext: initialization completed in 1438 ms
+[2024-11-14 16:37:59.153] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 16:37:59.667] [INFO ] [main] [org.apache.coyote.http11.Http11NioProtocol] [log] [173] - Starting ProtocolHandler ["http-nio-8090"]
+[2024-11-14 16:37:59.705] [INFO ] [main] [o.s.boot.web.embedded.tomcat.TomcatWebServer] [start] [243] - Tomcat started on port 8090 (http) with context path '/'
+[2024-11-14 16:37:59.723] [INFO ] [main] [com.local.MySchedule.MyScheduleApplication] [logStarted] [56] - Started MyScheduleApplication in 2.973 seconds (process running for 4.232)
+[2024-11-14 16:38:03.000] [INFO ] [http-nio-8090-exec-1] [o.a.c.core.ContainerBase.[Tomcat].[localhost].[/]] [log] [173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-11-14 16:38:03.000] [INFO ] [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [initServletBean] [532] - Initializing Servlet 'dispatcherServlet'
+[2024-11-14 16:38:03.002] [INFO ] [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [initServletBean] [554] - Completed initialization in 1 ms
+[2024-11-14 16:38:04.899] [INFO ] [http-nio-8090-exec-2] [com.local.MySchedule.controller.HomeController] [home] [22] - home
+[2024-11-14 16:38:05.746] [INFO ] [http-nio-8090-exec-3] [com.local.MySchedule.controller.ListController] [getList] [34] - get list
+[2024-11-14 16:38:05.774] [INFO ] [http-nio-8090-exec-3] [com.zaxxer.hikari.HikariDataSource] [getConnection] [109] - HikariPool-1 - Starting...
+[2024-11-14 16:38:06.569] [INFO ] [http-nio-8090-exec-3] [com.zaxxer.hikari.pool.HikariPool] [checkFailFast] [554] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3f8d5c81
+[2024-11-14 16:38:06.573] [INFO ] [http-nio-8090-exec-3] [com.zaxxer.hikari.HikariDataSource] [getConnection] [122] - HikariPool-1 - Start completed.
+[2024-11-14 16:38:06.771] [INFO ] [http-nio-8090-exec-3] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-14 size : 1
+[2024-11-14 16:38:11.330] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.controller.ListController] [postList] [64] - Post list : start - 2024-10-28 end - 2024-11-14
+[2024-11-14 16:38:11.341] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-10-28 size : 0
+[2024-11-14 16:38:11.351] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-10-29 size : 0
+[2024-11-14 16:38:11.357] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-10-30 size : 0
+[2024-11-14 16:38:11.372] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-10-31 size : 6
+[2024-11-14 16:38:11.388] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-01 size : 6
+[2024-11-14 16:38:11.403] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-02 size : 6
+[2024-11-14 16:38:11.417] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-03 size : 6
+[2024-11-14 16:38:11.430] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-04 size : 6
+[2024-11-14 16:38:11.440] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-05 size : 6
+[2024-11-14 16:38:11.449] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-06 size : 6
+[2024-11-14 16:38:11.456] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-07 size : 0
+[2024-11-14 16:38:11.464] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-08 size : 0
+[2024-11-14 16:38:11.470] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-09 size : 0
+[2024-11-14 16:38:11.479] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-10 size : 0
+[2024-11-14 16:38:11.490] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-11 size : 0
+[2024-11-14 16:38:11.497] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-12 size : 0
+[2024-11-14 16:38:11.505] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-13 size : 0
+[2024-11-14 16:38:11.515] [INFO ] [http-nio-8090-exec-6] [com.local.MySchedule.service.ScheduleService] [getScheduleByDate] [84] - Select schedules by date : 2024-11-14 size : 1
+[2024-11-14 16:38:17.564] [INFO ] [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] [close] [349] - HikariPool-1 - Shutdown initiated...
+[2024-11-14 16:38:17.586] [INFO ] [SpringApplicationShutdownHook] [com.zaxxer.hikari.HikariDataSource] [close] [351] - HikariPool-1 - Shutdown completed.
+[2024-11-14 16:38:37.501] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 50841 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 16:38:37.503] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 16:38:38.717] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 16:38:39.069] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 1.824 seconds (process running for 3.221)
+[2024-11-14 16:43:22.250] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 53912 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 16:43:22.260] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 16:43:24.039] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 16:43:24.448] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 2.524 seconds (process running for 4.279)
+[2024-11-14 17:03:26.037] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 66483 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 17:03:26.056] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 17:03:39.204] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 17:03:42.120] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 17.058 seconds (process running for 26.101)
+[2024-11-14 17:14:55.449] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 73718 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 17:14:55.575] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 17:14:58.563] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 17:14:59.200] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 4.305 seconds (process running for 7.611)
+[2024-11-14 17:16:26.272] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarting] [50] - Starting MyScheduleApplicationTests using Java 17.0.12 with PID 75161 (started by nick in /home/nick/apps/MySchedule)
+[2024-11-14 17:16:26.278] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-11-14 17:16:28.191] [INFO ] [main] [o.s.b.a.web.servlet.WelcomePageHandlerMapping] [<init>] [59] - Adding welcome page template: index
+[2024-11-14 17:16:28.588] [INFO ] [main] [com.local.MySchedule.MyScheduleApplicationTests] [logStarted] [56] - Started MyScheduleApplicationTests in 2.685 seconds (process running for 5.868)

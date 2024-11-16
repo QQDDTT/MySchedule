@@ -65,7 +65,7 @@ public class PlanController {
             LOGGER.error("获取计划类型失败！");
         }
         
-        return "/plan";
+        return "plan";
     }
 
     /**
@@ -116,7 +116,7 @@ public class PlanController {
                     model.addAttribute("Schedule", schedule);
                     model.addAttribute("Error", "创建计划失败！");
                     LOGGER.error("创建计划失败！", e);
-                    return "/plan";
+                    return "plan";
                 }
 
             case "update":
@@ -139,14 +139,14 @@ public class PlanController {
                     model.addAttribute("Schedule", schedule);
                     model.addAttribute("Error", "更新计划失败！");
                     LOGGER.error("更新计划失败！");
-                    return "/plan";
+                    return "plan";
                 }
 
             case "delete":
                 try {
 
                     scheduleService.deleteSchedule(scheduleDate, startTime, endTime);
-                    return "/home";
+                    return "home";
                 } catch (ScheduleException e) {
                     schedule.setScheduleDate(scheduleDate);
                     schedule.setStartTime(startTime);
@@ -162,13 +162,13 @@ public class PlanController {
                     model.addAttribute("Schedule", schedule);
                     model.addAttribute("Error", "删除计划失败！");
                     LOGGER.error("删除计划失败！");
-                    return "/plan";
+                    return "plan";
                 }
 
             default:
                 LOGGER.error("无效的动作: {}", action);
                 model.addAttribute("Error", "无效的动作：" + action);
-                return "/plan";
+                return "plan";
         }
     }
 }

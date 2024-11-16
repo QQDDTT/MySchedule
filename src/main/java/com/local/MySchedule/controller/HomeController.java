@@ -13,13 +13,13 @@ public class HomeController {
 private static Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
     @RequestMapping("/index")
     public String index() {
-        return "/index";
+        return "index";
     }
     
 
     @RequestMapping("/home")
     public String home(HttpServletRequest request, HttpServletResponse response){
         LOGGER.info("home");
-        return "/home";
+        return "home";
     }
 }

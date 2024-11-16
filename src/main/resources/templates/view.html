@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日程类型分布</title>
+</head>
+<body>
+    <div class="container">
+        <h1>日程类型百分比分析</h1>
+
+        <!-- 日期范围选择 -->
+        <form id="filterForm" action="/view" method="post">
+            <label for="startDate">开始日期:</label>
+            <input type="date" id="startDate" name="startDate" th:value="${@dateFormatUtil.formatDate(StartDate)}" required>
+            <label for="endDate">结束日期:</label>
+            <input type="date" id="endDate" name="endDate" th:value="${@dateFormatUtil.formatDate(EndDate)}" required>
+            <button type="submit" id="filterBtn">筛选</button>
+        </form>
+        
+        <!-- 日程类型统计 -->
+        <canvas id="schedulePieChart" class="schedulePieChart" width="500" height="500"></canvas>
+
+        <div th:if="${Error}">
+            <p id="error" th:text="${Error}"></p>
+        </div>
+    
+        <p class="back-link"><a href="/home">返回首页</a></p>
+
+    <script type="text/javascript" th:inline="javascript">
+
+        var typesMap = /*[[${TypesMap}]]*/ [];
+        var typesData = /*[[${TypesData}]]*/ [];
+
+        // 计算总和：将 typesData 中所有值相加，得到时间总和
+        var total = Object.values(typesData).reduce((acc, value) => acc + value, 0);
+
+        console.log("total:", total);
+
+        // 获取 canvas 元素及其绘图上下文
+        var canvas = document.getElementById('schedulePieChart');
+        var ctx = canvas.getContext('2d');
+
+        drawPieChart();
+
+        function drawPieChart() {
+            // 判断总和是否为 0，如果是，在 canvas 上显示错误信息
+            if (total == 0) {
+                // 设置字体样式
+                ctx.font = "20px Arial";
+                ctx.fillStyle = "#FF0000"; // 红色
+                ctx.textAlign = "center"; // 居中对齐
+                ctx.textBaseline = "middle"; // 垂直居中对齐
+
+                // 清空 canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // 绘制错误信息
+                ctx.fillText("没有数据可显示", canvas.width / 2, canvas.height / 2);
+                return;
+            }
+
+            // 定义绘图中心点和半径
+            var centerX = canvas.width / 2; // 圆心 X 坐标
+            var centerY = canvas.height / 2; // 圆心 Y 坐标
+            var radius = 200; // 圆的半径
+            var startAngle = 0; // 扇形起始角度（以弧度为单位）
+
+            // 遍历 typesData，绘制每个类型的扇形
+            for (var key in typesData) {
+                var value = typesData[key]; // 获取当前类型的累计时间
+                if (value == 0) {
+                    continue; // 如果当前类型的累计时间等于 0，跳过绘制扇形
+                }
+                var percentage = ((value / total) * 100).toFixed(2); // 计算百分比并保留两位小数
+                var endAngle = startAngle + (value / total) * 2 * Math.PI; // 计算扇形终止角度
+                var color = typesMap[key].bgColor; // 获取对应的背景颜色
+
+                // 开始绘制扇形
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY); // 将绘图起点移动到圆心
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle); // 绘制圆弧
+                ctx.fillStyle = color; // 设置扇形填充颜色
+                ctx.fill(); // 填充扇形
+                ctx.closePath();
+
+                // 计算扇形中心角度，用于放置标签
+                var midAngle = (startAngle + endAngle) / 2;
+                var labelRadius = radius / 1.5; // 默认标签的半径
+
+                // 如果扇形角度小于30度，将标签移到外面
+                if (endAngle - startAngle < Math.PI / 6) {
+                    labelRadius = radius + 20; // 将标签位置向外偏移
+                }
+
+                var labelX = centerX + labelRadius * Math.cos(midAngle); // 计算标签的 X 坐标
+                var labelY = centerY + labelRadius * Math.sin(midAngle); // 计算标签的 Y 坐标
+
+                // 绘制标签
+                ctx.fillStyle = "#000"; // 设置标签字体颜色
+                ctx.font = "14px Arial"; // 设置字体样式和大小
+                ctx.textAlign = "center"; // 文本居中对齐
+                ctx.fillText(typesMap[key].typeName + " " + percentage + "%", labelX, labelY); // 绘制类型名称
+
+                // 将起始角度设置为当前终止角度，为下一个扇形做准备
+                startAngle = endAngle;
+            }
+        }
+
+    </script>
+</body>
+</html>
