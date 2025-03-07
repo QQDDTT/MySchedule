@@ -10,6 +10,7 @@ RUN mkdir -p /home/logs
 # 设置环境变量，让日志写入指定目录（可选，需确保应用支持）
 ENV LOG_HOME=/home/logs
 
+
 # 暴露端口 8090
 EXPOSE 8090
 

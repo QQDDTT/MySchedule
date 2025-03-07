@@ -11,10 +11,12 @@ public class WebConfig implements WebMvcConfigurer {
     // 配置静态资源路径
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/custom_static/");
-        registry.addResourceHandler("/favicon.ico")
-        .addResourceLocations("classpath:/favicon/favicon.ico");
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/custom_static/");
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/favicon/favicon.ico");
+        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
+        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
+
     }
 
     // 配置默认视图

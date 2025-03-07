@@ -1,5 +1,4 @@
-CREATE DATABASE 'schedule_db';
-
+USE schedule_db;
 
 CREATE TABLE schedule_type (
     type_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '类型ID',

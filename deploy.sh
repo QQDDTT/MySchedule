@@ -4,26 +4,71 @@
 ORANGE='\033[33m'
 NC='\033[0m' # No Color
 
+# 最大等待时间
+MAX_TIME=30
+WAIT_TIME=0
+
 # 定义变量
 APP_NAME="MySchedule"
 DOCKER_IMAGE_NAME="myschedule-image"
 DOCKER_CONTAINER_NAME="myschedule-container"
 SERVER_PORT=8090
 
+# 定义数据库变量
+DB_CONTAINER_NAME="mysql_container"
+DB_HOST="localhost"
+DB_PORT=3306
+DB_USER="root"
+DB_PASSWORD="password"
+DATABASE_NAME="schedule_db"
+
+# 定义 SQL 文件路径
+SQL_CONTEXT_DB="./sql/Database.sql"
+SQL_CONTEXT_TABLE="./sql/Table.sql"
+SQL_CONTEXT_DATA="./sql/InsertData.sql"
+
 # 检查数据库容器是否运行
-if [ "$(docker ps -q -f name=mysql_container)" ]; then
-    echo -e "$(date +'%Y-%m-%d %H:%M:%S') ${ORANGE}数据库容器已运行，跳过启动...${NC}"
-elif [ "$(docker ps -aq -f name=mysql_container)" ]; then
+if [ "$(docker ps -q -f name=$DB_CONTAINER_NAME)" ]; then
+    echo -e "$(date +'%Y-%m-%d %H:%M:%S') ${ORANGE}数据库容器已运行.${NC}"
+elif [ "$(docker ps -aq -f name=$DB_CONTAINER_NAME)" ]; then
     # 如果容器存在但未运行，则启动容器
     echo -e "$(date +'%Y-%m-%d %H:%M:%S') ${ORANGE}启动数据库容器...${NC}"
-    docker start mysql_container
+    docker start $DB_CONTAINER_NAME
     echo -e "$(date +'%Y-%m-%d %H:%M:%S') ${ORANGE}数据库容器已启动！${NC}"
 else
     # 如果容器不存在，创建并启动容器
     echo -e "$(date +'%Y-%m-%d %H:%M:%S') ${ORANGE}创建并启动数据库容器...${NC}"
-    docker run -d --name mysql_container -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql:8.0.33
+    docker run -d --name $DB_CONTAINER_NAME -e MYSQL_ROOT_PASSWORD=$DB_PASSWORD -p $DB_PORT:$DB_PORT mysql:8.0.33
     echo -e "$(date +'%Y-%m-%d %H:%M:%S') ${ORANGE}数据库容器已创建并启动！${NC}"
 fi
+
+# 检测 MySQL 服务是否启动
+echo -e "${ORANGE}检测 MySQL 服务启动...${NC}"
+while [ $WAIT_TIME -le $MAX_TIME ]; do
+sleep 1
+    echo -e "\033[A\033[K${ORANGE}等待中... ${WAIT_TIME} 秒 ${NC}"
+    
+    # 使用 mysqladmin ping 检测 MySQL 是否可用
+    if docker exec $DB_CONTAINER_NAME mysql -h"$DB_HOST" -P"$DB_PORT" -u"$DB_USER" -p"$DB_PASSWORD" -e "SELECT 1;" &> /dev/null; then
+        echo -e "${ORANGE}MySQL 服务器已启动！${NC}"
+        break
+    fi
+
+    WAIT_TIME=$((WAIT_TIME+1))
+done
+
+# 检查数据库容器中是否存在数据库
+if docker exec $DB_CONTAINER_NAME mysql -u $DB_USER -p$DB_PASSWORD -e "SHOW DATABASES LIKE '$DATABASE_NAME';" | grep "$DATABASE_NAME" > /dev/null; then
+    # 如果数据库存在，则跳过
+    echo -e "$(date +'%Y-%m-%d %H:%M:%S') ${ORANGE}数据库已存在！${NC}"
+else
+    echo -e "$(date +'%Y-%m-%d %H:%M:%S') ${ORANGE}导入 SQL 文件...${NC}"
+    docker exec -i $DB_CONTAINER_NAME mysql -u $DB_USER -p$DB_PASSWORD < $SQL_CONTEXT_DB
+    docker exec -i $DB_CONTAINER_NAME mysql -u $DB_USER -p$DB_PASSWORD $DATABASE_NAME < $SQL_CONTEXT_TABLE
+    docker exec -i $DB_CONTAINER_NAME mysql -u $DB_USER -p$DB_PASSWORD $DATABASE_NAME < $SQL_CONTEXT_DATA
+fi
+
+echo -e "$(date +'%Y-%m-%d %H:%M:%S') ${ORANGE}数据库已就绪！${NC}"
 
 # 第一步：停止已存在的容器
 if [ "$(docker inspect --format '{{.State.Running}}' $DOCKER_CONTAINER_NAME)" ]; then
@@ -92,7 +137,7 @@ while [ $WAIT_TIME -le $MAX_TIME ]; do
         echo -e "${ORANGE}启动成功${NC}"
         # 打开链接
         echo -e "${ORANGE}打开浏览器${NC}"
-        explorer.exe http://localhost:$SERVER_PORT/
+        /mnt/c/Windows/explorer.exe "http://localhost:$SERVER_PORT/"
         break
     fi
     WAIT_TIME=$((WAIT_TIME+1))

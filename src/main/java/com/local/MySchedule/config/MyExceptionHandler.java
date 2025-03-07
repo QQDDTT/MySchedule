@@ -9,7 +9,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
 public class MyExceptionHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyExceptionHandler.class); // 修正这里
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public String handle404(NoHandlerFoundException ex, Model model) {
